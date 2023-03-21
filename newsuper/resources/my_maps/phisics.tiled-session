@@ -1,0 +1,180 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "pymunk_test_map_3.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 0.03125,
+            "scaleInEditor": 1
+        },
+        "#gemBlue": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "#gemGreen": {
+            "scaleInDock": 1
+        },
+        "#keyBlue": {
+            "scaleInDock": 1
+        },
+        "#serg": {
+            "dynamicWrapping": true
+        },
+        "#tiles": {
+            "dynamicWrapping": false
+        },
+        "#tiles64": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "#tiles64 — копия": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/SergDell10/AppData/Local/Programs/Python/Python39/Lib/site-packages/arcade/resources/tiled_maps/grass.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "C:/Users/SergDell10/AppData/Local/Programs/Python/Python39/Lib/site-packages/arcade/resources/tiled_maps/more_tiles.json": {
+            "scaleInDock": 0.25
+        },
+        "G:/projects/phisics_arcade/newsuper/myresource/tilesheet/tiles.tmj": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -1392,
+                "y": -208
+            }
+        },
+        "G:/projects/phisics_arcade/newsuper/myresource/tilesheet/tiles.tmj#tiles64": {
+            "scaleInDock": 0.25
+        },
+        "G:/projects/phisics_arcade/newsuper/myresource/tilesheet/tiles.tmj#tiles64 — копия": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "G:/projects/phisics_arcade/newsuper/resources/tiled_maps/grass.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "G:/projects/phisics_arcade/newsuper/resources/tiled_maps/more_tiles.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.25,
+            "scaleInEditor": 0.33
+        },
+        "pymunk_test_map_1.json": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1604,
+                "y": 4276
+            }
+        },
+        "pymunk_test_map_1.json#Untitled": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_1.json#boxCrate_double": {
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_1.json#end_texture": {
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_1.json#horizontal_long": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_1.json#items": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "pymunk_test_map_1.json#long": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_1.json#tiles": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.25
+        },
+        "pymunk_test_map_3.json": {
+            "scale": 0.25,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1030,
+                "y": 1668
+            }
+        },
+        "pymunk_test_map_3.json#gemBlue": {
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_3.json#gemGreen": {
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_3.json#keyBlue": {
+            "scaleInDock": 1
+        },
+        "pymunk_test_map_3.json#tiles64": {
+            "scaleInDock": 0.5
+        },
+        "pymunk_test_map_3.json#tiles64 — копия": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "tiles.tmj": {
+            "scale": 0.6580729166666667,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 486.2683023347843,
+                "y": 320.63316185199835
+            }
+        },
+        "tiles.tmj#codepage_437": {
+            "scaleInDock": 2,
+            "scaleInEditor": 2
+        },
+        "tiles.tmj#tiles": {
+            "scaleInDock": 0.25
+        }
+    },
+    "last.exportedFilePath": "G:/projects/phisics_arcade/newsuper/myresource/tilesheet",
+    "last.externalTilesetPath": "G:/projects/phisics_arcade/newsuper/resources/tiled_maps",
+    "last.imagePath": "G:/projects/phisics_arcade/newsuper/myresource/tilesheet",
+    "lastUsedTilesetExportFilter": "Все файлы (*)",
+    "map.height": 40,
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 70,
+    "openFiles": [
+        "pymunk_test_map_3.json"
+    ],
+    "project": "phisics.tiled-project",
+    "property.type": "int",
+    "recentFiles": [
+        "pymunk_test_map_3.json",
+        "pymunk_test_map_1.json",
+        "G:/projects/phisics_arcade/newsuper/myresource/tilesheet/tiles.tmj",
+        "G:/projects/phisics_arcade/newsuper/resources/tiled_maps/more_tiles.json",
+        "tiles.tmj"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "JSON файлы с наборами тайлов (*.tsj *.json)",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    },
+    "tileset.type": 0
+}

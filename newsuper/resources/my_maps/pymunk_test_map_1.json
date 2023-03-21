@@ -46,7 +46,7 @@
                         }],
                  "rotation":0,
                  "visible":true,
-                 "width":128,
+                 "width":384,
                  "x":1536,
                  "y":3072
                 }],
@@ -107,7 +107,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztmE0KwjAQRtNb2JW68geVXqlX8JI9RrssunftBCKEMNFOxhobvgePwJCm+VpS0hgDAABg6YyBh7zTmZ2RqZWcmctrKTVzLG+JvNYsAADk4lrlnsHyGcjeawHQwK1JrFOgpSZXXjsYfK\/+nSN5yj0JAEAyF7Jxnide80i810bYX3oG8WkfYrPuya1zZ6ZlbhP3N2thXUpdxbXv08\/qZ24Y7964N1frfqAmb3jGzD2HsE\/sbCvW79tq8mqcc+x3Sv4Xnln1U8k=",
+         "data":"eJztmEEOgjAQRcstZKWuRKOGK3EFD8cVOIYsie5d2yY1aZqpdloRGf5LXkiaUvpphpQqBQAAYO4MnvtppzM6A9EmOTOV1yA1cyivRF41u2Raq3RaQqlQ+SRnpnLNKe+liO+7tLU1xNRur706VwByoGqSU6cAUJTalXPtFb5X\/85Be5x6EgCAZM7a2nqKvOeR+KwNsz\/3DOLTPsRkrbRb607FZW4S9zdrZjuXsghr1tPN6mauCe\/OuDfb1v3AnLz+GTP1Hvw+obOtUL9vm5M3xzHHfifnf+EJlJlkIw==",
          "encoding":"base64",
          "height":32,
          "id":1,

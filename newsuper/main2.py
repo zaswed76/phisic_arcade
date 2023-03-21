@@ -16,28 +16,21 @@ LAYER_NAME_PLATFORMS ="Platforms"
 LAYER_NAME_DYNAMIC = "Dynamic Items"
 LAYER_NAME_LADDERS = "Ladders"
 LAYER_NAME_MOVING_PLATFORMS = "Moving Platforms"
-LAYER_NAME_COINS = "Coins"
 LAYER_NAME_BOTTLE = "bottle"
-LAYER_NAME_BACKGROUND = "Background"
+LAYER_NAME_BACKGROUND = "background"
 LAYER_NAME_PLAYER = "Player"
 LAYER_NAME_ENEMIES = "Enemies"
-
-
-
-
-
-
+LAYER_NAME_INVERTORY = "invertory"
+LAYER_NAME_FOREGROUND = "foreground"
 
 class GameWindow(Controller):
-    """ Main Window """
-
     def __init__(self, width, height, title):
         """ Create the variables """
 
         # Init the parent class
         super().__init__(width, height, title)
         self.set_fullscreen()
-        self.level = 1 # с какого начинаем
+        self.level = 3 # с какого начинаем
         self.max_level = 2 # сколько уровней
 
         self.player_sprite: Optional[PlayerSprite] = None
@@ -46,32 +39,23 @@ class GameWindow(Controller):
         self.box_list: Optional[arcade.SpriteList] = None
         self.bullet_list: Optional[arcade.SpriteList] = None
         self.item_list: Optional[arcade.SpriteList] = None
-        self.moving_sprites_list: Optional[arcade.SpriteList] = None
+        self.moving_list: Optional[arcade.SpriteList] = None
         self.ladder_list: Optional[arcade.SpriteList] = None
         self.enemy_: Optional[arcade.SpriteList] = None
-
-
-
         self.physics_engine: Optional[arcade.PymunkPhysicsEngine] = None
-
-
         self.camera = None
         self.gui_camera = None
-        self.count_box = 0
-        self.on_bullet = False
-
-
-
-
+        self.count_box = 3
+        self.on_bullet = True
 
     def setup(self):
-
         layer_options = {
-            LAYER_NAME_PLATFORMS: {"Platforms": True},
-            LAYER_NAME_DYNAMIC: {"Dynamic Items": False},
-            LAYER_NAME_LADDERS: {"Ladders": True},
-            LAYER_NAME_BOTTLE: {"bottle": True},
-            LAYER_NAME_MOVING_PLATFORMS: {"Moving Platforms": False}
+            LAYER_NAME_PLATFORMS: {"use_spatial_hash": True},
+            LAYER_NAME_DYNAMIC: {"use_spatial_hash": True},
+            LAYER_NAME_LADDERS: {"use_spatial_hash": True},
+            LAYER_NAME_BOTTLE: {"use_spatial_hash": True},
+            LAYER_NAME_MOVING_PLATFORMS: {"use_spatial_hash": False},
+            LAYER_NAME_INVERTORY: {"use_spatial_hash": True}
         }
 
         self.player_list = arcade.SpriteList()
@@ -82,21 +66,23 @@ class GameWindow(Controller):
         map_name = f"resources/my_maps/pymunk_test_map_{self.level}.json"
         self.tile_map = arcade.load_tilemap(map_name, SPRITE_SCALING_TILES,
                                             layer_options)
-        self.scene = arcade.Scene.from_tilemap(self.tile_map)
 
-        arcade.set_background_color(self.tile_map.background_color)
+
+        # arcade.set_background_color(self.tile_map.background_color)
+        self.background_image = arcade.load_texture("myresource/images/Untitled.jpg")
         self.end_of_map = END_OF_MAP[0]*SPRITE_SIZE, (self.tile_map.height - END_OF_MAP[1] - 1)*SPRITE_SIZE
 
 
         # Pull the sprite layers out of the tile map
-        self.wall_list = self.tile_map.sprite_lists["Platforms"]
-        self.item_list = self.tile_map.sprite_lists["Dynamic Items"]
-        self.ladder_list = self.tile_map.sprite_lists["Ladders"]
-        self.bottle_list = self.tile_map.sprite_lists["bottle"]
-        self.moving_sprites_list = self.tile_map.sprite_lists['Moving Platforms']
-        self.foreground = self.tile_map.sprite_lists['foreground']
-        self.background= self.tile_map.sprite_lists['background']
-        self.invertory_list = self.tile_map.sprite_lists['invertory']
+        self.wall_list = self.tile_map.sprite_lists[LAYER_NAME_PLATFORMS]
+        self.item_list = self.tile_map.sprite_lists[LAYER_NAME_DYNAMIC]
+        self.ladder_list = self.tile_map.sprite_lists[LAYER_NAME_LADDERS]
+        self.bottle_list = self.tile_map.sprite_lists[LAYER_NAME_BOTTLE]
+        self.moving_list = self.tile_map.sprite_lists.get(
+            LAYER_NAME_MOVING_PLATFORMS, arcade.SpriteList())
+        self.foreground = self.tile_map.sprite_lists[LAYER_NAME_FOREGROUND]
+        self.background= self.tile_map.sprite_lists[LAYER_NAME_BACKGROUND]
+        self.invertory_list = self.tile_map.sprite_lists[LAYER_NAME_INVERTORY]
         self.invertory_list.rescale(0.5)
 
         self.interface = Interface('resources/icons/Untitled.png')
@@ -114,11 +100,96 @@ class GameWindow(Controller):
         self.view_bottom = 0
         self.camera = arcade.Camera(cam_w/2, cam_h/2)
         self.gui_camera = arcade.Camera(cam_w/2, cam_h/2)
-
-
         self._init_player_sprite()
-        self.enemies_layer = self.tile_map.object_lists[LAYER_NAME_ENEMIES]
-        for my_object in self.enemies_layer:
+        self._init_enemies()
+        self.pan_camera_to_user()
+        damping = DEFAULT_DAMPING
+        gravity = (0, -GRAVITY)
+        self.physics_engine = arcade.PymunkPhysicsEngine(damping=damping,
+                                                         gravity=gravity)
+
+        def wall_hit_handler(bullet_sprite, _wall_sprite, _arbiter, _space, _data):
+            """ Called for bullet/wall collision """
+            bullet_sprite.remove_from_sprite_lists()
+        self.physics_engine.add_collision_handler("bullet", "wall", post_handler=wall_hit_handler)
+        def item_hit_handler(bullet_sprite, item_sprite, _arbiter, _space, _data):
+            """ Called for bullet/wall collision """
+            bullet_sprite.remove_from_sprite_lists()
+            item_sprite.remove_from_sprite_lists()
+        self.physics_engine.add_collision_handler("bullet", "item", post_handler=item_hit_handler)
+
+        def enemy_hit_handler(bullet_sprite, enemy_sprite, _arbiter, _space, _data):
+            """ Called for bullet/wall collision """
+            bullet_sprite.remove_from_sprite_lists()
+            enemy_sprite.remove_from_sprite_lists()
+        self.physics_engine.add_collision_handler("bullet", "enemy", post_handler=enemy_hit_handler)
+
+        def player_hit_handler(player_sprite, enemy_sprite, _arbiter, _space, _data):
+            self.player_sprite.live.minus(enemy_sprite.properties.get("damage", 0))
+        self.physics_engine.add_collision_handler("player", "enemy", post_handler=player_hit_handler)
+
+        def player2_hit_handler(invertory, player_sprite,  _arbiter, _space, _data):
+            self.interface.append_item(invertory.texture)
+            self.count_box += invertory.properties["count"]
+            invertory.remove_from_sprite_lists()
+        self.physics_engine.add_collision_handler("invertory", "player",  post_handler=player2_hit_handler)
+
+        self.physics_engine.add_sprite(self.player_sprite,
+                                       damping=0.1,
+                                       friction=PLAYER_FRICTION,
+                                       mass=PLAYER_MASS,
+                                       moment=arcade.PymunkPhysicsEngine.MOMENT_INF,
+                                       collision_type="player",
+                                       max_horizontal_velocity=PLAYER_MAX_HORIZONTAL_SPEED,
+                                       max_vertical_velocity=PLAYER_MAX_VERTICAL_SPEED)
+
+
+        self.physics_engine.add_sprite_list(self.wall_list,
+                                            friction=WALL_FRICTION,
+                                            collision_type="wall",
+
+                                            body_type=arcade.PymunkPhysicsEngine.STATIC)
+
+        self.physics_engine.add_sprite_list(self.invertory_list,
+                                            friction=WALL_FRICTION,
+                                            collision_type="invertory",
+                                            body_type=arcade.PymunkPhysicsEngine.DYNAMIC)
+
+
+
+
+        # Create the items
+        self.physics_engine.add_sprite_list(self.item_list,
+                                            friction=DYNAMIC_ITEM_FRICTION,
+
+                                            collision_type="item")
+
+        # Add kinematic sprites
+        self.physics_engine.add_sprite_list(self.moving_list,
+                                            body_type=arcade.PymunkPhysicsEngine.KINEMATIC,
+
+                                            collision_type="wall")
+        for sp in self.enemies_list.sprite_list:
+            self.physics_engine.add_sprite(sp,
+                                            collision_type="enemy",
+                                            body_type=arcade.PymunkPhysicsEngine.DYNAMIC,
+                                            friction=0.1,
+                                            mass=1,
+                                            damping=0.1,
+                                            elasticity=0.5,
+                                            moment=arcade.PymunkPhysicsEngine.MOMENT_INF,
+                                           #
+                                           max_horizontal_velocity=PLAYER_MAX_HORIZONTAL_SPEED,
+                                           max_vertical_velocity=PLAYER_MAX_VERTICAL_SPEED)
+
+        self.level_restsrt_options = [lambda: not self.player_list.sprite_list,
+                                      lambda: self.player_sprite.center_y < -512,
+                                      lambda: self.player_sprite.live.current <= 0]
+
+    def _init_enemies(self):
+        self.enemies_list = self.tile_map.object_lists.get(
+            LAYER_NAME_ENEMIES, arcade.SpriteList())
+        for my_object in self.enemies_list:
             cartesian = self.tile_map.get_cartesian(
                 my_object.shape[0], my_object.shape[1]
             )
@@ -141,120 +212,7 @@ class GameWindow(Controller):
                 # print(enemy.boundary_right, "enemy.boundary_right")
             if "change_x" in my_object.properties:
                 enemy.change_x = my_object.properties["change_x"]
-            self.scene.add_sprite(LAYER_NAME_ENEMIES, enemy)
-
-        self.pan_camera_to_user()
-
-        # --- Pymunk Physics Engine Setup ---
-
-        # The default damping for every object controls the percent of velocity
-        # the object will keep each second. A value of 1.0 is no speed loss,
-        # 0.9 is 10% per second, 0.1 is 90% per second.
-        # For top-down games, this is basically the friction for moving objects.
-        # For platformers with gravity, this should probably be set to 1.0.
-        # Default value is 1.0 if not specified.
-        damping = DEFAULT_DAMPING
-
-        # Set the gravity. (0, 0) is good for outer space and top-down.
-        gravity = (0, -GRAVITY)
-
-        # Create the physics engine
-        self.physics_engine = arcade.PymunkPhysicsEngine(damping=damping,
-                                                         gravity=gravity)
-
-
-        def wall_hit_handler(bullet_sprite, _wall_sprite, _arbiter, _space, _data):
-            """ Called for bullet/wall collision """
-            bullet_sprite.remove_from_sprite_lists()
-
-        self.physics_engine.add_collision_handler("bullet", "wall", post_handler=wall_hit_handler)
-
-        def item_hit_handler(bullet_sprite, item_sprite, _arbiter, _space, _data):
-            """ Called for bullet/wall collision """
-            bullet_sprite.remove_from_sprite_lists()
-            item_sprite.remove_from_sprite_lists()
-
-        self.physics_engine.add_collision_handler("bullet", "item", post_handler=item_hit_handler)
-
-        def enemy_hit_handler(bullet_sprite, enemy_sprite, _arbiter, _space, _data):
-            """ Called for bullet/wall collision """
-            bullet_sprite.remove_from_sprite_lists()
-            enemy_sprite.remove_from_sprite_lists()
-
-        self.physics_engine.add_collision_handler("bullet", "enemy", post_handler=enemy_hit_handler)
-
-
-
-        def player_hit_handler(player_sprite, enemy_sprite, _arbiter, _space, _data):
-            self.player_sprite.live.minus(enemy_sprite.properties["damage"])
-        self.physics_engine.add_collision_handler("player", "enemy", post_handler=player_hit_handler)
-
-        def player2_hit_handler(invertory, player_sprite,  _arbiter, _space, _data):
-            self.interface.append_item(invertory.texture)
-            self.count_box += invertory.properties["count"]
-            invertory.remove_from_sprite_lists()
-            print(invertory.properties)
-
-        self.physics_engine.add_collision_handler("invertory", "player",  post_handler=player2_hit_handler)
-
-        self.physics_engine.add_sprite(self.player_sprite,
-                                       damping=0.1,
-                                       friction=PLAYER_FRICTION,
-                                       mass=PLAYER_MASS,
-                                       moment=arcade.PymunkPhysicsEngine.MOMENT_INF,
-                                       collision_type="player",
-                                       max_horizontal_velocity=PLAYER_MAX_HORIZONTAL_SPEED,
-                                       max_vertical_velocity=PLAYER_MAX_VERTICAL_SPEED)
-
-        # Create the walls.
-        # By setting the body type to PymunkPhysicsEngine.STATIC the walls can't
-        # move.
-        # Movable objects that respond to forces are PymunkPhysicsEngine.DYNAMIC
-        # PymunkPhysicsEngine.KINEMATIC objects will move, but are assumed to be
-        # repositioned by code and don't respond to physics forces.
-        # Dynamic is default.
-        self.physics_engine.add_sprite_list(self.wall_list,
-                                            friction=WALL_FRICTION,
-                                            collision_type="wall",
-
-                                            body_type=arcade.PymunkPhysicsEngine.STATIC)
-
-        self.physics_engine.add_sprite_list(self.invertory_list,
-                                            friction=WALL_FRICTION,
-                                            collision_type="invertory",
-                                            body_type=arcade.PymunkPhysicsEngine.DYNAMIC)
-
-
-
-
-        # Create the items
-        self.physics_engine.add_sprite_list(self.item_list,
-                                            friction=DYNAMIC_ITEM_FRICTION,
-
-                                            collision_type="item")
-
-        # Add kinematic sprites
-        self.physics_engine.add_sprite_list(self.moving_sprites_list,
-                                            body_type=arcade.PymunkPhysicsEngine.KINEMATIC,
-
-                                            collision_type="wall")
-        for sp in self.scene[LAYER_NAME_ENEMIES].sprite_list:
-            self.physics_engine.add_sprite(sp,
-                                            collision_type="enemy",
-                                            body_type=arcade.PymunkPhysicsEngine.DYNAMIC,
-                                            friction=0.1,
-                                            mass=1,
-                                            damping=0.1,
-                                            elasticity=0.5,
-                                            moment=arcade.PymunkPhysicsEngine.MOMENT_INF,
-                                           #
-                                           max_horizontal_velocity=PLAYER_MAX_HORIZONTAL_SPEED,
-                                           max_vertical_velocity=PLAYER_MAX_VERTICAL_SPEED)
-
-        self.level_restsrt_options = [lambda: not self.player_list.sprite_list,
-                                      lambda: self.player_sprite.center_y < -512,
-                                      lambda: self.player_sprite.live.current <= 0]
-
+            self.enemies_list.append(enemy)
 
     def _init_player_sprite(self):
         live = Live()
@@ -264,7 +222,6 @@ class GameWindow(Controller):
         self.player_sprite.center_x = SPRITE_SIZE * PLAYER_START_GRID[0] + SPRITE_SIZE / 2
         self.player_sprite.center_y = SPRITE_SIZE * PLAYER_START_GRID[1] + SPRITE_SIZE / 2
         self.player_list.append(self.player_sprite)
-
 
     def on_update(self, delta_time):
         """ Movement and game logic """
@@ -306,7 +263,6 @@ class GameWindow(Controller):
                 self.physics_engine.apply_force(self.player_sprite, force)
                 # Set friction to zero for the player while moving
                 self.physics_engine.set_friction(self.player_sprite, 0)
-
         else:
             # Player's feet are not moving. Therefore up the friction so we stop.
             self.physics_engine.set_friction(self.player_sprite, 1.0)
@@ -314,9 +270,7 @@ class GameWindow(Controller):
         # Move items in the physics engine
         self.physics_engine.step()
 
-        # For each moving sprite, see if we've reached a boundary and need to
-        # reverse course.
-        for moving_sprite in self.moving_sprites_list:
+        for moving_sprite in self.moving_list:
             if moving_sprite.boundary_right and \
                     moving_sprite.change_x > 0 and \
                     moving_sprite.right > moving_sprite.boundary_right:
@@ -342,11 +296,12 @@ class GameWindow(Controller):
             self.pan_camera_to_user(panning_fraction=0.12)
             self.setup_next_level()
         # Update moving platforms and enemies
-        self.scene.update_animation(delta_time,[LAYER_NAME_ENEMIES])
-        self.scene.update([LAYER_NAME_ENEMIES])
+        if self.enemies_list.sprite_list:
+            self.enemies_list.update_animation(delta_time)
+            self.enemies_list.update()
 
         # See if the enemy hit a boundary and needs to reverse direction.
-        for enemy in self.scene[LAYER_NAME_ENEMIES]:
+        for enemy in self.enemies_list.sprite_list:
             self.enspeed = enemy.center_y
             is_on_ground = self.physics_engine.is_on_ground(enemy)
             if not is_on_ground:
@@ -381,11 +336,9 @@ class GameWindow(Controller):
         for botl in btl_list:
             # print('!!!!!!!!!AAAAAAAAAAAAAAAAAAAAAAAAA')
             botl.remove_from_sprite_lists()
-            self.player_sprite.live.add(botl.properties['live'])
+            self.player_sprite.live.add(botl.properties.get('live', 0))
 
         self.interface.update()
-
-
 
     def setup_next_level(self):
         if self.player_sprite.left >= self.end_of_map[0] and self.player_sprite.center_y >= self.end_of_map[1]:
@@ -401,11 +354,14 @@ class GameWindow(Controller):
         #                                     3400, 2048,
         #                                     self.background)
         self.camera.use()
-        self.scene[LAYER_NAME_ENEMIES].draw()
+        arcade.draw_lrwh_rectangle_textured(0, 0,
+                                            4480,2560,
+                                            self.background_image)
+        self.enemies_list.draw()
         self.background.draw()
         self.wall_list.draw()
         self.ladder_list.draw()
-        self.moving_sprites_list.draw()
+        self.moving_list.draw()
         self.bottle_list.draw()
         self.invertory_list.draw()
         self.box_list.draw()
@@ -439,8 +395,6 @@ class GameWindow(Controller):
         )
 
         self.interface.draw()
-
-
 
     def pan_camera_to_user(self, panning_fraction: float = 0.5):
         """

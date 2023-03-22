@@ -30,8 +30,10 @@ class GameWindow(Controller):
         # Init the parent class
         super().__init__(width, height, title)
         self.set_fullscreen()
+        self.set_vsync(True)
         self.level = 3 # с какого начинаем
         self.max_level = 2 # сколько уровней
+        self.background_image = None
 
         self.player_sprite: Optional[PlayerSprite] = None
         self.player_list: Optional[arcade.SpriteList] = None
@@ -67,9 +69,10 @@ class GameWindow(Controller):
         self.tile_map = arcade.load_tilemap(map_name, SPRITE_SCALING_TILES,
                                             layer_options)
 
-
+        print(self.tile_map.tiled_map.layers)
         # arcade.set_background_color(self.tile_map.background_color)
-        self.background_image = arcade.load_texture("myresource/images/Untitled.jpg")
+        self.background_image = arcade.load_texture("myresource/images/Untitled.png")
+
         self.end_of_map = END_OF_MAP[0]*SPRITE_SIZE, (self.tile_map.height - END_OF_MAP[1] - 1)*SPRITE_SIZE
 
 
@@ -220,7 +223,7 @@ class GameWindow(Controller):
 
 
         self.player_sprite.center_x = SPRITE_SIZE * PLAYER_START_GRID[0] + SPRITE_SIZE / 2
-        self.player_sprite.center_y = SPRITE_SIZE * PLAYER_START_GRID[1] + SPRITE_SIZE / 2
+        self.player_sprite.center_y = SPRITE_SIZE * (SCREEN_GRID_HEIGHT-PLAYER_START_GRID[1]) + SPRITE_SIZE / 2
         self.player_list.append(self.player_sprite)
 
     def on_update(self, delta_time):
@@ -354,13 +357,18 @@ class GameWindow(Controller):
         #                                     3400, 2048,
         #                                     self.background)
         self.camera.use()
-        arcade.draw_lrwh_rectangle_textured(0, 0,
+
+
+        if self.background_image:
+            arcade.draw_lrwh_rectangle_textured(0, 0,
                                             4480,2560,
                                             self.background_image)
-        self.enemies_list.draw()
-        self.background.draw()
         self.wall_list.draw()
+        self.enemies_list.draw()
         self.ladder_list.draw()
+        self.background.draw()
+
+
         self.moving_list.draw()
         self.bottle_list.draw()
         self.invertory_list.draw()
@@ -396,7 +404,7 @@ class GameWindow(Controller):
 
         self.interface.draw()
 
-    def pan_camera_to_user(self, panning_fraction: float = 0.5):
+    def pan_camera_to_user(self, panning_fraction: float = 0.1):
         """
         Manage Scrolling
 

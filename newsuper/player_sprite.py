@@ -7,10 +7,11 @@ class PlayerSprite(arcade.Sprite):
     """ Player Sprite """
     def __init__(self,
                  ladder_list: arcade.SpriteList,
-                 hit_box_algorithm, live=None):
+                 hit_box_algorithm, live=None, type='player'):
         """ Init """
         # Let parent initialize
         super().__init__()
+        self.type = type
 
         # Set our scale
         self.live = live

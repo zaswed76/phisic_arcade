@@ -33,6 +33,30 @@ GRAVITY = 1300
 
 # Damping - Amount of speed lost per second
 DEFAULT_DAMPING = 1
+
+
+# How many pixels to move before we change the texture in the walking animation
+DISTANCE_TO_CHANGE_TEXTURE = 20
+
+# How much force to put on the bullet
+BULLET_MOVE_FORCE = 100000
+
+
+# Mass of the bullet
+BULLET_MASS = 2
+
+# Make bullet less affected by gravity
+BOX_MOVE_FORCE = 131800
+BULLET_GRAVITY = 1100
+BOX_GRAVITY = 500
+
+MY_BOX_MASS = 4
+MY_BOX_MAX_COUNT = 3
+
+###################################################################
+###############     PLAYER    #####################################
+###################################################################
+
 PLAYER_DAMPING = 1
 
 
@@ -40,17 +64,17 @@ PLAYER_START_GRID = 6, 23
 # Friction between objects
 PLAYER_FRICTION = 1
 WALL_FRICTION = 1
-DYNAMIC_ITEM_FRICTION = 1
+DYNAMIC_ITEM_FRICTION = 0.7
 
 # Mass (defaults to 1)
 PLAYER_MASS = 3.0
 
 # Keep player from going too fast
-PLAYER_MAX_HORIZONTAL_SPEED = 1300
+PLAYER_MAX_HORIZONTAL_SPEED = 500
 PLAYER_MAX_VERTICAL_SPEED = 800
 
 # Force applied while on the ground
-PLAYER_MOVE_FORCE_ON_GROUND = 5100
+PLAYER_MOVE_FORCE_ON_GROUND = 5500
 
 # Force applied when moving left/right in the air
 PLAYER_MOVE_FORCE_IN_AIR = 3000
@@ -65,20 +89,13 @@ DEAD_ZONE = 0.1
 RIGHT_FACING = 0
 LEFT_FACING = 1
 
-# How many pixels to move before we change the texture in the walking animation
-DISTANCE_TO_CHANGE_TEXTURE = 20
-
-# How much force to put on the bullet
-BULLET_MOVE_FORCE = 7800
+###################################################################
+###############     ENEMY     #####################################
+###################################################################
 
 
-# Mass of the bullet
-BULLET_MASS = 0.4
-
-# Make bullet less affected by gravity
-BOX_MOVE_FORCE = 111800
-BULLET_GRAVITY = 1100
-BOX_GRAVITY = 500
-
-MY_BOX_MASS = 4
-MY_BOX_MAX_COUNT = 3
+ENEMY_BULLET_SPEED = 6
+ENEMY_BULLET_MASS = 2
+ENEMY_BULLET_DAMAGE = 10
+ENEMY_BULLET_TIME_FIRING = 3
+ENEMY_BULLET_FORCE = 100000

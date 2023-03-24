@@ -1,6 +1,7 @@
 import arcade
 from constants import *
 from functions import *
+from bullet_sprite import Bullet
 
 class Entity(arcade.Sprite):
     def __init__(self, name_folder, name_file):
@@ -51,7 +52,9 @@ class Enemy(Entity):
         self.should_update_walk = 0
 
     def update_animation(self, delta_time: float = 1 / 60):
-
+        # is_on_ground = self.physics_engine.is_on_ground(self)
+        # if not is_on_ground:
+        #     self.kill()
         # Figure out if we need to flip face left or right
         if self.change_x < 0 and self.facing_direction == RIGHT_FACING:
             self.facing_direction = LEFT_FACING
@@ -77,39 +80,66 @@ class Enemy(Entity):
 
 
 class RobotEnemy(Enemy):
-    def __init__(self, ladder_list, properties):
+    def __init__(self, ladder_list, properties, physics_engine, bullet_list, time_between_firing, main):
 
         # Set up parent class
         super().__init__("robot", "robot")
+        self.main = main
         self.properties = properties
+        self.physics_engine = physics_engine
         self.x_odometer = 0
         self.y_odometer = 0
         self.ladder_list = ladder_list
         self.is_on_ladder = False
+        self.time_since_last_firing = 0.0
 
-    def update(self):
-        pass
+        # How often do we fire?
+        self.time_between_firing = time_between_firing
 
-        if self.angle > 10:
-            self.angle = 1
-        elif self.angle < 10:
-            self.angle = 1
+        # When we fire, what list tracks the bullets?
+        self.bullet_list = bullet_list
+        self.bullet_gravity = (0, -30)
+        self.collision_lists = [self.main.player_list,
+                                self.main.wall_list,
+                                self.main.wall_list,
+                                self.main.box_list
+                                ]
+
+    def update(self, delta_time: float = 1/60):
+        self.time_since_last_firing += delta_time
+
+        # If we are past the firing time, then fire
+        if self.time_since_last_firing >= self.time_between_firing:
+
+            # Reset timer
+            self.time_since_last_firing = 0
+
+            # Fire the bullet
+            bullet = Bullet(":resources:images/space_shooter/laserBlue01.png", collisions_lists=self.collision_lists, damage=50)
+            bullet.center_x = self.left
+            bullet.angle = 180
+            bullet.top = self.center_y - self.height/4
+            self.bullet_list.append(bullet)
+            self.physics_engine.add_sprite(bullet,
+                                                   mass=ENEMY_BULLET_MASS,
+                                                   damping=1,
+                                                   friction=0.9,
+                                                   collision_type="bullet2",
+                                                   gravity=self.bullet_gravity,
+                                                   elasticity=0.5,)
+            force = (ENEMY_BULLET_FORCE, 1)
+            self.physics_engine.apply_force(bullet, force)
 
     def pymunk_moved(self, physics_engine, dx, dy, d_angle):
-        # print('tttttttttttttttttttttttttt')
-        """ Handle being moved by the pymunk engine """
-        # Figure out if we need to face left or right
         if dx < -DEAD_ZONE and self.character_face_direction == RIGHT_FACING:
             self.character_face_direction = LEFT_FACING
         elif dx > DEAD_ZONE and self.character_face_direction == LEFT_FACING:
             self.character_face_direction = RIGHT_FACING
 
-        # Are we on the ground?
         is_on_ground = physics_engine.is_on_ground(self)
         if not is_on_ground:
             self.change_y *= 4
 
-        # Are we on a ladder?
         if len(arcade.check_for_collision_with_list(self, self.ladder_list)) > 0:
             if not self.is_on_ladder:
                 self.is_on_ladder = True

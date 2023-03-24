@@ -27,7 +27,7 @@ class CellSprite(arcade.Sprite):
 
 
 class Interface:
-    def __init__(self, img, left=464, top=28, scale=0.4, border=8, item_scale=0.25):
+    def __init__(self, img, left=464, top=28, scale=0.4, border=8, item_scale=0.5):
         self.item_scale = item_scale
         self.border = border
         self.scale = scale

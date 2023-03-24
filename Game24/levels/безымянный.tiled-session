@@ -1,0 +1,85 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Все файлы (*)",
+    "fileStates": {
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json": {
+            "scale": 0.20378348214285713,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 2240.122679226683,
+                "y": 1280.7711265677199
+            }
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#gemBlue": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#gemGreen": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#horizontal_long": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#horizontal_long_box": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#keyBlue": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#tiles64": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#tiles64 — копия": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/tiled_maps/level_2.json": {
+            "scale": 0.28529687499999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1600.0876280190596,
+                "y": 1282.8741990251385
+            }
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/tiled_maps/standard_tileset.json": {
+            "scaleInDock": 1
+        },
+        "map_1.json": {
+            "expandedGroupLayers": [
+                3
+            ],
+            "scale": 0.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 633,
+                "y": 2804
+            }
+        }
+    },
+    "last.imagePath": "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet",
+    "map.height": 50,
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 100,
+    "openFiles": [
+    ],
+    "project": "безымянный.tiled-project",
+    "recentFiles": [
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/tiled_maps/level_2.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64.tsj"
+    ],
+    "tileset.lastUsedFormat": "json",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}

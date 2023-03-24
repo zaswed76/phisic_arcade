@@ -2,21 +2,25 @@
 Example of Pymunk Physics Engine Platformer
 """
 import math
+import pprint
 from typing import Optional
 import arcade
 from constants import *
 from player_sprite import PlayerSprite
-
+from bullet_sprite import BulletSprite, BoxSprite, Bullet
 from interface import CellSprite, Interface
 from enemy import RobotEnemy, ZombieEnemy
 from live import Live
+from bottle import BottleSprite
 from controller import Controller
 
 LAYER_NAME_PLATFORMS ="Platforms"
+LAYER_NAME_BGPLATFORMS ="BgPlatforms"
 LAYER_NAME_DYNAMIC = "Dynamic Items"
 LAYER_NAME_LADDERS = "Ladders"
 LAYER_NAME_MOVING_PLATFORMS = "Moving Platforms"
 LAYER_NAME_BOTTLE = "bottle"
+LAYER_NAME_DINAMIC_BOTTLE = "dinamic_bottle"
 LAYER_NAME_BACKGROUND = "background"
 LAYER_NAME_PLAYER = "Player"
 LAYER_NAME_ENEMIES = "Enemies"
@@ -29,6 +33,8 @@ class GameWindow(Controller):
 
         # Init the parent class
         super().__init__(width, height, title)
+        self.aaa = []
+        self.current_AAAAAAA = 0
         self.set_fullscreen()
         self.set_vsync(True)
         self.level = 3 # с какого начинаем
@@ -40,19 +46,20 @@ class GameWindow(Controller):
         self.wall_list: Optional[arcade.SpriteList] = None
         self.box_list: Optional[arcade.SpriteList] = None
         self.bullet_list: Optional[arcade.SpriteList] = None
-        self.item_list: Optional[arcade.SpriteList] = None
+        self.dinamic_list: Optional[arcade.SpriteList] = None
         self.moving_list: Optional[arcade.SpriteList] = None
         self.ladder_list: Optional[arcade.SpriteList] = None
         self.enemy_: Optional[arcade.SpriteList] = None
         self.physics_engine: Optional[arcade.PymunkPhysicsEngine] = None
         self.camera = None
         self.gui_camera = None
-        self.count_box = 3
+        self.count_box = 1
         self.on_bullet = True
 
     def setup(self):
         layer_options = {
             LAYER_NAME_PLATFORMS: {"use_spatial_hash": True},
+            LAYER_NAME_BGPLATFORMS: {"use_spatial_hash": True},
             LAYER_NAME_DYNAMIC: {"use_spatial_hash": True},
             LAYER_NAME_LADDERS: {"use_spatial_hash": True},
             LAYER_NAME_BOTTLE: {"use_spatial_hash": True},
@@ -61,24 +68,38 @@ class GameWindow(Controller):
         }
 
         self.player_list = arcade.SpriteList()
+        self.player_list.collision_type = 'player'
+
         self.box_list = arcade.SpriteList()
+        self.box_list.collision_type = 'wall'
         self.bullet_list = arcade.SpriteList()
+        self.bullet_list_enemy = arcade.SpriteList()
+        self.enemies_list = arcade.SpriteList()
+        self.dinamic_bottle_list = arcade.SpriteList()
 
 
         map_name = f"resources/my_maps/pymunk_test_map_{self.level}.json"
         self.tile_map = arcade.load_tilemap(map_name, SPRITE_SCALING_TILES,
                                             layer_options)
 
-        print(self.tile_map.tiled_map.layers)
+        # print(self.tile_map.tiled_map.layers)
         # arcade.set_background_color(self.tile_map.background_color)
         self.background_image = arcade.load_texture("myresource/images/Untitled.png")
+        self.fbackground_image = arcade.load_texture("myresource/images/fgUntitled.png")
 
         self.end_of_map = END_OF_MAP[0]*SPRITE_SIZE, (self.tile_map.height - END_OF_MAP[1] - 1)*SPRITE_SIZE
 
 
         # Pull the sprite layers out of the tile map
         self.wall_list = self.tile_map.sprite_lists[LAYER_NAME_PLATFORMS]
-        self.item_list = self.tile_map.sprite_lists[LAYER_NAME_DYNAMIC]
+        self.wall_list.collision_type = 'wall'
+
+
+
+
+
+        self.wall_bg_list = self.tile_map.sprite_lists[LAYER_NAME_BGPLATFORMS]
+        self.dinamic_list = self.tile_map.sprite_lists[LAYER_NAME_DYNAMIC]
         self.ladder_list = self.tile_map.sprite_lists[LAYER_NAME_LADDERS]
         self.bottle_list = self.tile_map.sprite_lists[LAYER_NAME_BOTTLE]
         self.moving_list = self.tile_map.sprite_lists.get(
@@ -86,7 +107,9 @@ class GameWindow(Controller):
         self.foreground = self.tile_map.sprite_lists[LAYER_NAME_FOREGROUND]
         self.background= self.tile_map.sprite_lists[LAYER_NAME_BACKGROUND]
         self.invertory_list = self.tile_map.sprite_lists[LAYER_NAME_INVERTORY]
-        self.invertory_list.rescale(0.5)
+        self.invertory_layer = self.tile_map.object_lists
+
+        self.invertory_list.rescale(1)
 
         self.interface = Interface('resources/icons/Untitled.png')
         self.interface.append_cell()
@@ -103,13 +126,16 @@ class GameWindow(Controller):
         self.view_bottom = 0
         self.camera = arcade.Camera(cam_w/2, cam_h/2)
         self.gui_camera = arcade.Camera(cam_w/2, cam_h/2)
-        self._init_player_sprite()
-        self._init_enemies()
-        self.pan_camera_to_user()
+
+
         damping = DEFAULT_DAMPING
         gravity = (0, -GRAVITY)
         self.physics_engine = arcade.PymunkPhysicsEngine(damping=damping,
                                                          gravity=gravity)
+
+        self._init_player_sprite()
+        self._init_enemies()
+        self.pan_camera_to_user()
 
         def wall_hit_handler(bullet_sprite, _wall_sprite, _arbiter, _space, _data):
             """ Called for bullet/wall collision """
@@ -117,15 +143,44 @@ class GameWindow(Controller):
         self.physics_engine.add_collision_handler("bullet", "wall", post_handler=wall_hit_handler)
         def item_hit_handler(bullet_sprite, item_sprite, _arbiter, _space, _data):
             """ Called for bullet/wall collision """
+            print("bullet_sprite, item_sprite")
             bullet_sprite.remove_from_sprite_lists()
             item_sprite.remove_from_sprite_lists()
-        self.physics_engine.add_collision_handler("bullet", "item", post_handler=item_hit_handler)
+        self.physics_engine.add_collision_handler("bullet", "box", post_handler=item_hit_handler)
 
         def enemy_hit_handler(bullet_sprite, enemy_sprite, _arbiter, _space, _data):
             """ Called for bullet/wall collision """
-            bullet_sprite.remove_from_sprite_lists()
-            enemy_sprite.remove_from_sprite_lists()
+
+            enemy_sprite.turn_right()
         self.physics_engine.add_collision_handler("bullet", "enemy", post_handler=enemy_hit_handler)
+
+
+
+
+        def bottle_hit_handler(box, bottle, _arbiter, _space, _data):
+            """ Called for bullet/wall collision """
+
+            texture = bottle.texture
+            pos = bottle.center_x, bottle.center_y
+            prop = bottle.properties
+
+            bottle.remove_from_sprite_lists()
+            bt = BottleSprite(texture, 1, 0)
+            bt.set_position(*pos)
+            bt.properties = prop
+            self.physics_engine.add_sprite(bt, body_type=arcade.PymunkPhysicsEngine.DYNAMIC)
+            self.dinamic_bottle_list.append(bt)
+
+        self.physics_engine.add_collision_handler("box", "bottle", post_handler=bottle_hit_handler)
+
+        def bottle__player_hit_handler(player, bottle, _arbiter, _space, _data):
+            """ Called for bullet/wall collision """
+
+            bottle.remove_from_sprite_lists()
+        self.physics_engine.add_collision_handler("player", "bottle", post_handler=bottle__player_hit_handler)
+
+
+
 
         def player_hit_handler(player_sprite, enemy_sprite, _arbiter, _space, _data):
             self.player_sprite.live.minus(enemy_sprite.properties.get("damage", 0))
@@ -150,7 +205,24 @@ class GameWindow(Controller):
         self.physics_engine.add_sprite_list(self.wall_list,
                                             friction=WALL_FRICTION,
                                             collision_type="wall",
+                                            body_type=arcade.PymunkPhysicsEngine.STATIC)
 
+
+
+        self.physics_engine.add_sprite_list(self.bottle_list,
+                                            friction=WALL_FRICTION,
+                                            collision_type="bottle",
+                                            body_type=arcade.PymunkPhysicsEngine.KINEMATIC)
+
+
+        self.physics_engine.add_sprite_list(self.dinamic_bottle_list,
+                                            friction=WALL_FRICTION,
+                                            collision_type="bottle",
+                                            body_type=arcade.PymunkPhysicsEngine.DYNAMIC)
+
+        self.physics_engine.add_sprite_list(self.wall_bg_list,
+                                            friction=WALL_FRICTION,
+                                            collision_type="wall",
                                             body_type=arcade.PymunkPhysicsEngine.STATIC)
 
         self.physics_engine.add_sprite_list(self.invertory_list,
@@ -162,9 +234,9 @@ class GameWindow(Controller):
 
 
         # Create the items
-        self.physics_engine.add_sprite_list(self.item_list,
+        self.physics_engine.add_sprite_list(self.dinamic_list,
                                             friction=DYNAMIC_ITEM_FRICTION,
-
+                                            body_type=arcade.PymunkPhysicsEngine.DYNAMIC,
                                             collision_type="item")
 
         # Add kinematic sprites
@@ -177,28 +249,149 @@ class GameWindow(Controller):
                                             collision_type="enemy",
                                             body_type=arcade.PymunkPhysicsEngine.DYNAMIC,
                                             friction=0.1,
-                                            mass=1,
+                                            mass=0.5,
                                             damping=0.1,
                                             elasticity=0.5,
                                             moment=arcade.PymunkPhysicsEngine.MOMENT_INF,
                                            #
-                                           max_horizontal_velocity=PLAYER_MAX_HORIZONTAL_SPEED,
-                                           max_vertical_velocity=PLAYER_MAX_VERTICAL_SPEED)
+                                           max_horizontal_velocity=100,
+                                           max_vertical_velocity=100)
 
         self.level_restsrt_options = [lambda: not self.player_list.sprite_list,
                                       lambda: self.player_sprite.center_y < -512,
                                       lambda: self.player_sprite.live.current <= 0]
 
+    def create_bullet(self,x, y):
+               if self.on_bullet:
+                    self.collision_lists = [self.player_list,
+                                self.wall_list,
+                                self.box_list
+                                ]
+                    bullet = Bullet(":resources:images/space_shooter/laserBlue01.png", collisions_lists=self.collision_lists, damage=50)
+                    self.bullet_list.append(bullet)
+
+                    start_x = self.player_sprite.center_x
+                    start_y = self.player_sprite.center_y
+                    bullet.position = self.player_sprite.position
+
+                    # Get from the mouse the destination location for the bullet
+                    # IMPORTANT! If you have a scrolling screen, you will also need
+                    # to add in self.view_bottom and self.view_left.
+                    dest_x = x + self.view_left
+                    dest_y = y + self.view_bottom
+                    # self.view_bottom = self.view_bottom
+                    # self.view_left = self.view_left
+
+                    # Do math to calculate how to get the bullet to the destination.
+                    # Calculation the angle in radians between the start points
+                    # and end points. This is the angle the bullet will travel.
+                    x_diff = dest_x - start_x
+                    y_diff = dest_y - start_y
+                    angle = math.atan2(y_diff, x_diff)
+
+                    # What is the 1/2 size of this sprite, so we can figure out how far
+                    # away to spawn the bullet
+                    size = max(self.player_sprite.width, self.player_sprite.height) / 2
+
+                    # Use angle to to spawn bullet away from player in proper direction
+                    bullet.center_x += size * math.cos(angle)
+                    bullet.center_y += size * math.sin(angle)
+
+                    # Set angle of bullet
+                    bullet.angle = math.degrees(angle)
+
+                    # Gravity to use for the bullet
+                    # If we don't use custom gravity, bullet drops too fast, or we have
+                    # to make it go too fast.
+                    # Force is in relation to bullet's angle.
+
+                    bullet_gravity = (0, -100)
+
+                    # Add the sprite. This needs to be done AFTER setting the fields above.
+                    self.physics_engine.add_sprite(bullet,
+                                                   mass=2,
+                                                   damping=1,
+                                                   friction=0.9,
+                                                   collision_type="bullet",
+                                                   gravity=bullet_gravity,
+                                                   elasticity=0.5)
+                    # Add force to bullet
+                    force = (BULLET_MOVE_FORCE, 1)
+                    self.physics_engine.apply_force(bullet, force)
+
+    def create_box(self, x, y):
+               scr = 'myresource/tiles64/green_box.png'
+               bullet = BoxSprite(scr, 1)
+               self.box_list.append(bullet)
+               if len(self.box_list.sprite_list) > self.count_box:
+                   self.box_list.pop(0).remove_from_sprite_lists()
+
+               # Position the bullet at the player's current location
+               start_x = self.player_sprite.center_x
+               start_y = self.player_sprite.center_y
+               bullet.position = self.player_sprite.position
+
+               # Get from the mouse the destination location for the bullet
+               # IMPORTANT! If you have a scrolling screen, you will also need
+               # to add in self.view_bottom and self.view_left.
+               dest_x = x + self.view_left
+               dest_y = y + self.view_bottom
+               self.view_bottom = self.view_bottom
+               # self.view_left = self.view_left
+
+               # Do math to calculate how to get the bullet to the destination.
+               # Calculation the angle in radians between the start points
+               # and end points. This is the angle the bullet will travel.
+               x_diff = dest_x - start_x
+               y_diff = dest_y - start_y
+               angle = math.atan2(y_diff, x_diff)
+
+               # What is the 1/2 size of this sprite, so we can figure out how far
+               # away to spawn the bullet
+               size = max(self.player_sprite.width, self.player_sprite.height) / 2
+
+               # Use angle to to spawn bullet away from player in proper direction
+               bullet.center_x += size * math.cos(angle)
+               bullet.center_y += size * math.sin(angle)
+
+               # Set angle of bullet
+               bullet.angle = math.degrees(angle)
+
+               # Gravity to use for the bullet
+               # If we don't use custom gravity, bullet drops too fast, or we have
+               # to make it go too fast.
+               # Force is in relation to bullet's angle.
+
+               bullet_gravity = (0, -BULLET_GRAVITY)
+               box_gravity = (0, -BOX_GRAVITY)
+
+               # Add the sprite. This needs to be done AFTER setting the fields above.
+               self.physics_engine.add_sprite(bullet,
+                                              mass=MY_BOX_MASS,
+                                              damping=0.9,
+                                              friction=0.9,
+                                              collision_type="box",
+                                              gravity=box_gravity,
+                                              elasticity=0.9)
+               # Add force to bullet
+
+               force_box = (BOX_MOVE_FORCE, 1)
+               self.physics_engine.apply_force(bullet, force_box)
+
     def _init_enemies(self):
-        self.enemies_list = self.tile_map.object_lists.get(
-            LAYER_NAME_ENEMIES, arcade.SpriteList())
-        for my_object in self.enemies_list:
+
+        enemies_layer = self.tile_map.object_lists[LAYER_NAME_ENEMIES]
+        # print(self.enemies_list, 333)
+        for my_object in enemies_layer:
+            # print('555555')
             cartesian = self.tile_map.get_cartesian(
                 my_object.shape[0], my_object.shape[1]
             )
+            # cartesian = (32, 23)
             enemy_type = my_object.properties["type"]
             if enemy_type == "robot":
-                enemy = RobotEnemy(self.ladder_list, my_object.properties)
+                enemy = RobotEnemy(self.ladder_list, my_object.properties, self.physics_engine, self.bullet_list, 3.0, self)
+                enemy.scale = 1.3
             elif enemy_type == "zombie":
                 enemy = ZombieEnemy(self.ladder_list, my_object.properties)
             enemy.center_x = math.floor(
@@ -219,7 +412,7 @@ class GameWindow(Controller):
 
     def _init_player_sprite(self):
         live = Live()
-        self.player_sprite = PlayerSprite(self.ladder_list, hit_box_algorithm="Detailed", live=live)
+        self.player_sprite = PlayerSprite(self.ladder_list, hit_box_algorithm="Detailed", live=live, type='player')
 
 
         self.player_sprite.center_x = SPRITE_SIZE * PLAYER_START_GRID[0] + SPRITE_SIZE / 2
@@ -234,11 +427,26 @@ class GameWindow(Controller):
 
         is_on_ground = self.physics_engine.is_on_ground(self.player_sprite)
         # Update player forces based on keys pressed
+        if not is_on_ground and not self.player_sprite.is_on_ladder:
+            self.aaa.append(self.player_sprite.position)
+        elif self.aaa:
+            k = self.aaa[0][1]-self.player_sprite.center_y
+
+            if k > 420.0:
+                self.player_sprite.live.current -= k/14
+            self.aaa.clear()
+
+
+
+
+
         if self.left_pressed and not self.right_pressed:
             # Create a force to the left. Apply it.
             if is_on_ground or self.player_sprite.is_on_ladder:
                 force = (-PLAYER_MOVE_FORCE_ON_GROUND, 0)
+
             else:
+
                 force = (-PLAYER_MOVE_FORCE_IN_AIR, 0)
             self.physics_engine.apply_force(self.player_sprite, force)
             # Set friction to zero for the player while moving
@@ -294,10 +502,13 @@ class GameWindow(Controller):
             # Figure out and set our moving platform velocity.
             # Pymunk uses velocity is in pixels per second. If we instead have
             # pixels per frame, we need to convert.
+            # print(delta_time)
             velocity = (moving_sprite.change_x * 1 / delta_time, moving_sprite.change_y * 1 / delta_time)
             self.physics_engine.set_velocity(moving_sprite, velocity)
+            self.bullet_list.update()
             self.pan_camera_to_user(panning_fraction=0.12)
             self.setup_next_level()
+
         # Update moving platforms and enemies
         if self.enemies_list.sprite_list:
             self.enemies_list.update_animation(delta_time)
@@ -309,8 +520,9 @@ class GameWindow(Controller):
             is_on_ground = self.physics_engine.is_on_ground(enemy)
             if not is_on_ground:
                 # enemy.change_x = 0
+                border_no_movement = SCREEN_HEIGHT- enemy.properties['border_no_movement']
                 enemy.change_y = -0.4
-                if enemy.center_y < 226:
+                if enemy.center_y < border_no_movement:
                     enemy.change_x = 0
                     enemy.change_y = -4
                 if enemy.center_y < -64:
@@ -335,11 +547,15 @@ class GameWindow(Controller):
             velocity = (enemy.change_x * 1 / delta_time, enemy.change_y * 1 / delta_time)
             self.physics_engine.set_velocity(enemy, velocity)
 
-        btl_list = arcade.check_for_collision_with_list(self.player_sprite, self.bottle_list)
+
+        btl_list = arcade.check_for_collision_with_list(self.player_sprite, self.dinamic_bottle_list)
         for botl in btl_list:
             # print('!!!!!!!!!AAAAAAAAAAAAAAAAAAAAAAAAA')
             botl.remove_from_sprite_lists()
             self.player_sprite.live.add(botl.properties.get('live', 0))
+
+
+
 
         self.interface.update()
 
@@ -357,26 +573,31 @@ class GameWindow(Controller):
         #                                     3400, 2048,
         #                                     self.background)
         self.camera.use()
+        self.wall_bg_list.draw()
+        # if self.background_image:
+        #     arcade.draw_lrwh_rectangle_textured(2, 0,
+        #                                     4480,2560,
+        #                                     self.background_image)
 
-
-        if self.background_image:
-            arcade.draw_lrwh_rectangle_textured(0, 0,
-                                            4480,2560,
-                                            self.background_image)
+        self.ladder_list.draw()
+        self.player_list.draw()
+        # if self.fbackground_image:
+        #     arcade.draw_lrwh_rectangle_textured(0, 0,
+        #                                     4480,2560,
+        #                                     self.fbackground_image)
         self.wall_list.draw()
         self.enemies_list.draw()
-        self.ladder_list.draw()
         self.background.draw()
-
-
         self.moving_list.draw()
         self.bottle_list.draw()
+        self.dinamic_bottle_list.draw()
         self.invertory_list.draw()
         self.box_list.draw()
         self.bullet_list.draw()
-        self.item_list.draw()
-        self.player_list.draw()
+        self.dinamic_list.draw()
+
         self.foreground.draw()
+
         self.gui_camera.use()
 
 
@@ -393,7 +614,9 @@ class GameWindow(Controller):
             264, 325, 25, 15, arcade.csscolor.DODGER_BLUE
         )
 
-        score_text = f"{len(self.box_list.sprite_list)}"
+
+        score_text = f"{round(self.player_sprite.center_y, 1)}"
+
         arcade.draw_text(
             score_text,
             10,

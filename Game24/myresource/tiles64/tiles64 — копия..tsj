@@ -1,0 +1,33 @@
+{ "columns":13,
+ "image":"..\/tilesheet\/tiles64 \u2014 \u043a\u043e\u043f\u0438\u044f.png",
+ "imageheight":768,
+ "imagewidth":832,
+ "margin":0,
+ "name":"tiles64 \u2014 \u043a\u043e\u043f\u0438\u044f",
+ "spacing":0,
+ "tilecount":156,
+ "tiledversion":"1.10.0",
+ "tileheight":64,
+ "tiles":[
+        {
+         "id":1,
+         "properties":[
+                {
+                 "name":"count",
+                 "type":"int",
+                 "value":1
+                }]
+        }, 
+        {
+         "id":58,
+         "properties":[
+                {
+                 "name":"live",
+                 "type":"int",
+                 "value":50
+                }]
+        }],
+ "tilewidth":64,
+ "type":"tileset",
+ "version":"1.10"
+}

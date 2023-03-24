@@ -23,7 +23,6 @@
          "name":"Moving Platforms",
          "objects":[
                 {
-                 "class":"",
                  "gid":192,
                  "height":128,
                  "id":1,
@@ -45,6 +44,7 @@
                          "value":3
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":384,
                  "x":1536,
@@ -62,7 +62,6 @@
          "name":"Enemies",
          "objects":[
                 {
-                 "class":"",
                  "height":0,
                  "id":3,
                  "name":"",
@@ -92,12 +91,23 @@
                          "name":"type",
                          "type":"string",
                          "value":"robot"
+                        }, 
+                        {
+                         "name":"x",
+                         "type":"float",
+                         "value":2116
+                        }, 
+                        {
+                         "name":"y",
+                         "type":"float",
+                         "value":3652
                         }],
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":0,
-                 "x":2048,
-                 "y":3712
+                 "x":2116,
+                 "y":3652
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -107,7 +117,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztmEEOgjAQRcstZKWuRKOGK3EFD8cVOIYsie5d2yY1aZqpdloRGf5LXkiaUvpphpQqBQAAYO4MnvtppzM6A9EmOTOV1yA1cyivRF41u2Raq3RaQqlQ+SRnpnLNKe+liO+7tLU1xNRur706VwByoGqSU6cAUJTalXPtFb5X\/85Be5x6EgCAZM7a2nqKvOeR+KwNsz\/3DOLTPsRkrbRb607FZW4S9zdrZjuXsghr1tPN6mauCe\/OuDfb1v3AnLz+GTP1Hvw+obOtUL9vm5M3xzHHfifnf+EJlJlkIw==",
+         "data":"eJztmEEOgjAQRcstZKWuRKOGK+EhuQLHkCXRvWvbpCZNM9VOKyLDf8kLSVNKP82QUqUAAADMncFzP+10Rmcg2iRnpvIapGYO5ZXIq2aXTGuVTksoFSqf5MxUrjnlvRTxfZe2toaY2u21V+cKQA5UTXLqFACKUrtyrr3C9+rfOWiPU08CAJDMWVtbT5H3PBKftWH2555BfNqHmKyVdmvdqbjMTeL+Zs1s51IWYc16ulndzDXh3Rn3Ztu6H5iT1z9jpt6D3yd0thXq921z8uY45tjv5PwvPAHK7GPD",
          "encoding":"base64",
          "height":32,
          "id":1,
@@ -135,7 +145,7 @@
         }, 
         {
          "compression":"zlib",
-         "data":"eJztzgENAAAIA6Ab2v7GUDdIQAIAAAAAcFfX9gAA4I8BX+MAdw==",
+         "data":"eJztzgENAAAIA6Ab1v4VjKFukIAEAAAAAOCuru0BAMAfA8wUAGc=",
          "encoding":"base64",
          "height":32,
          "id":12,
@@ -193,7 +203,7 @@
  "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"left-up",
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.0",
  "tileheight":128,
  "tilesets":[
         {
@@ -1289,7 +1299,6 @@
                      "name":"",
                      "objects":[
                             {
-                             "class":"",
                              "height":0,
                              "id":1,
                              "name":"",
@@ -1367,6 +1376,7 @@
                                      "y":-14.1818
                                     }],
                              "rotation":0,
+                             "type":"",
                              "visible":true,
                              "width":0,
                              "x":23.2727,
@@ -1452,12 +1462,12 @@
          "tilewidth":576
         }, 
         {
-         "firstgid":351,
+         "firstgid":354,
          "source":"C:\/Users\/SergDell10\/AppData\/Local\/Programs\/Python\/Python39\/Lib\/site-packages\/arcade\/resources\/tiled_maps\/grass.json"
         }, 
         {
          "columns":1,
-         "firstgid":370,
+         "firstgid":354,
          "image":"..\/images\/tiles\/end_texture.png",
          "imageheight":1728,
          "imagewidth":704,
@@ -1470,7 +1480,7 @@
         }, 
         {
          "columns":1,
-         "firstgid":371,
+         "firstgid":355,
          "image":"..\/icons\/Untitled.png",
          "imageheight":128,
          "imagewidth":128,
@@ -1482,12 +1492,12 @@
          "tilewidth":128
         }, 
         {
-         "firstgid":372,
+         "firstgid":358,
          "source":"C:\/Users\/SergDell10\/AppData\/Local\/Programs\/Python\/Python39\/Lib\/site-packages\/arcade\/resources\/tiled_maps\/more_tiles.json"
         }, 
         {
          "columns":1,
-         "firstgid":520,
+         "firstgid":358,
          "image":"..\/icons\/boxCrate_double.png",
          "imageheight":128,
          "imagewidth":128,
@@ -1516,6 +1526,6 @@
         }],
  "tilewidth":128,
  "type":"map",
- "version":"1.9",
+ "version":"1.10",
  "width":60
 }

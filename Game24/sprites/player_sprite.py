@@ -22,10 +22,12 @@ class PlayerSprite(arcade.Sprite):
     """ Player Sprite """
     def __init__(self,
                  ladder_list: arcade.SpriteList,
-                 hit_box_algorithm, live=None, type='player'):
+                 hit_box_algorithm, physics_engine=None, live=None, type='player', game=None):
         """ Init """
         # Let parent initialize
         super().__init__()
+        self.game = game
+        self.physics_engine = physics_engine
         self.type = type
 
         # Set our scale
@@ -109,7 +111,7 @@ class PlayerSprite(arcade.Sprite):
 
         if self.is_on_ladder and not is_on_ground:
             # Have we moved far enough to change the texture?
-            if abs(self.y_odometer) > ConstGame.DISTANCE_TO_CHANGE_TEXTURE:
+            if abs(self.y_odometer) > DISTANCE_TO_CHANGE_TEXTURE:
 
                 # Reset the odometer
                 self.y_odometer = 0
@@ -147,3 +149,54 @@ class PlayerSprite(arcade.Sprite):
             if self.cur_texture > 7:
                 self.cur_texture = 0
             self.texture = self.walk_textures[self.cur_texture][self.character_face_direction]
+
+    def update(self):
+        # Update player forces based on keys pressed
+        # if not is_on_ground and not self.player_sprite.is_on_ladder:
+        #     self.aaa.append(self.player_sprite.position)
+        # elif self.aaa:
+        #     k = self.aaa[0][1]-self.player_sprite.center_y
+        #
+        #     if k > 420.0:
+        #         self.player_sprite.live.current -= k/14
+        #     self.aaa.clear()
+        is_on_ground = self.physics_engine.is_on_ground(self)
+        if self.game.left_pressed and not self.game.right_pressed:
+            # Create a force to the left. Apply it.
+            if is_on_ground or self.is_on_ladder:
+                force = (-PLAYER_MOVE_FORCE_ON_GROUND, 0)
+
+            else:
+
+                force = (-PLAYER_MOVE_FORCE_IN_AIR, 0)
+            self.physics_engine.apply_force(self, force)
+            # Set friction to zero for the player while moving
+            self.physics_engine.set_friction(self, 0)
+        elif self.game.right_pressed and not self.game.left_pressed:
+            # Create a force to the right. Apply it.
+            if is_on_ground or self.is_on_ladder:
+                force = (PLAYER_MOVE_FORCE_ON_GROUND, 0)
+            else:
+                force = (PLAYER_MOVE_FORCE_IN_AIR, 0)
+            self.physics_engine.apply_force(self, force)
+            # Set friction to zero for the player while moving
+            self.physics_engine.set_friction(self, 0)
+        elif self.game.up_pressed and not self.game.down_pressed:
+            # Create a force to the right. Apply it.
+            if self.is_on_ladder:
+                force = (0, PLAYER_MOVE_FORCE_ON_GROUND)
+                self.physics_engine.apply_force(self, force)
+                # Set friction to zero for the player while moving
+                self.physics_engine.set_friction(self, 0)
+        elif self.game.down_pressed and not self.game.up_pressed:
+            # Create a force to the right. Apply it.
+            if self.is_on_ladder:
+                force = (0, -PLAYER_MOVE_FORCE_ON_GROUND)
+                self.physics_engine.apply_force(self, force)
+                # Set friction to zero for the player while moving
+                self.physics_engine.set_friction(self, 0)
+        else:
+            # Player's feet are not moving. Therefore up the friction so we stop.
+            self.physics_engine.set_friction(self, 1.0)
+
+        # Move items in the physics engine

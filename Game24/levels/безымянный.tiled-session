@@ -3,21 +3,103 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "map_1.json",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
-        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64.tsj": {
+        "C:/Users/Serg!0/AppData/Local/Programs/Python/Python39/Lib/site-packages/arcade/resources/tiled_maps/pymunk_test_map.json": {
+            "scale": 0.23660937499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1603.9093970811596,
+                "y": 1242.5543155253254
+            }
+        },
+        "C:/Users/Serg!0/AppData/Local/Programs/Python/Python39/Lib/site-packages/arcade/resources/tiled_maps/pymunk_test_map.json#items": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Serg!0/AppData/Local/Programs/Python/Python39/Lib/site-packages/arcade/resources/tiled_maps/pymunk_test_map.json#tiles": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/ex/grass.json": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/ex/more_tiles.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/ex/pymunk_test_map.json": {
+            "scale": 0.11887369791666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3840.2103072457426,
+                "y": 2052.598718440221
+            }
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/ex/pymunk_test_map.json#items": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/ex/pymunk_test_map.json#tiles": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tiles/my.tsj": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tiles/tri.json": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tiles/tri.tsj": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/grass.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64 — копия.tsj": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64.tsj": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/resources/tiled_maps/grass.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/resources/tiled_maps/pymunk_test_map.json": {
+            "scale": 0.28529687499999995,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1600.0876280190596,
+                "y": 1619.3657922120601
+            }
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/resources/tiled_maps/pymunk_test_map.json#items": {
+            "scaleInDock": 1
+        },
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/resources/tiled_maps/pymunk_test_map.json#tiles": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
         "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json": {
             "scale": 0.20378348214285713,
-            "selectedLayer": 4,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 2240.122679226683,
-                "y": 1280.7711265677199
+                "x": 2237.6690946930285,
+                "y": 1283.2247111013749
             }
         },
         "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json#gemBlue": {
@@ -56,30 +138,57 @@
             "expandedGroupLayers": [
                 3
             ],
-            "scale": 0.5,
-            "selectedLayer": 3,
+            "expandedObjectLayers": [
+                9,
+                10
+            ],
+            "scale": 0.75,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 633,
-                "y": 2804
+                "x": 643.3333333333333,
+                "y": 2742.6666666666665
             }
+        },
+        "map_1.json#tiles64 — копия": {
+            "scaleInDock": 1
         }
     },
-    "last.imagePath": "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet",
+    "last.exportedFilePath": "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet",
+    "last.imagePath": "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/images/tiles64",
+    "last.objectTemplatePath": "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet",
+    "lastUsedTilesetExportFilter": "JSON файлы с наборами тайлов (*.tsj *.json)",
     "map.height": 50,
     "map.lastUsedFormat": "json",
     "map.tileHeight": 64,
     "map.tileWidth": 64,
     "map.width": 100,
     "openFiles": [
+        "map_1.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64.tsj",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64 — копия.tsj"
     ],
     "project": "безымянный.tiled-project",
+    "property.type": "float",
     "recentFiles": [
-        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/tiled_maps/level_2.json",
-        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64.tsj"
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/my_maps/pymunk_test_map_3.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tiles/my.tsj",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64.tsj",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tiles/tri.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/grass.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tiles/tri.tsj",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64 — копия.tsj",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/resources/tiled_maps/grass.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/resources/tiled_maps/pymunk_test_map.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/ex/pymunk_test_map.json",
+        "map_1.json",
+        "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/newsuper/resources/tiled_maps/level_2.json"
     ],
+    "tileset.embedInMap": false,
     "tileset.lastUsedFormat": "json",
     "tileset.tileSize": {
         "height": 64,
         "width": 64
-    }
+    },
+    "tileset.type": 0
 }

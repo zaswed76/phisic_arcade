@@ -5,8 +5,8 @@ import arcade
 from bullet_sprite import BulletSprite, BoxSprite
 
 class Controller(arcade.Window):
-    def __init__(self, width, height, title):
-        super().__init__(width, height, title)
+    def __init__(self):
+        super().__init__()
         self.left_pressed: bool = False
         self.right_pressed: bool = False
         self.up_pressed: bool = False

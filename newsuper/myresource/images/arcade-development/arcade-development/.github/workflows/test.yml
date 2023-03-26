@@ -1,0 +1,42 @@
+name: GitHub Ubuntu test
+
+on:
+  push:
+    branches: [development, maintenance]
+  pull_request:
+    branches: [development, maintenance]
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ['3.7', '3.8', '3.9', '3.10']
+        architecture: ['x64']
+
+    steps:
+      - uses: actions/checkout@v2      
+      - name: setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: ${{ matrix.architecture }}
+
+      - name: dependencies
+        run: |
+          python -m pip install -U pip wheel setuptools
+      - name: wheel
+        run: |
+          python -m pip install -e .[dev]
+      - name: code-inspection
+        run: | 
+          mypy arcade
+          flake8 arcade
+      - name: build-docs
+        run: |
+          sphinx-build doc build -W

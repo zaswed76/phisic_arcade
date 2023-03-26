@@ -1,0 +1,19 @@
+# File: .readthedocs.yaml
+
+version: 2
+
+sphinx:
+  configuration: doc/conf.py
+
+python:
+  version: 3.8
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
+# Build PDF & ePub
+formats:
+  - epub
+  - pdf

@@ -32,7 +32,7 @@ class GameWindow(Controller):
         """ Create the variables """
 
         # Init the parent class
-        super().__init__(width, height, title)
+        super().__init__()
         self.aaa = []
         self.current_AAAAAAA = 0
         self.set_fullscreen()
@@ -122,6 +122,7 @@ class GameWindow(Controller):
 
         cam_w = self.tile_map.width*SPRITE_IMAGE_SIZE*SPRITE_SCALING_TILES
         cam_h = self.tile_map.height*SPRITE_IMAGE_SIZE*SPRITE_SCALING_TILES
+        print(cam_w, 'cam_w')
         self.view_left = 0
         self.view_bottom = 0
         self.camera = arcade.Camera(cam_w/2, cam_h/2)

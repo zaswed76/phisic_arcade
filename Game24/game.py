@@ -78,7 +78,7 @@ class GameView(BaseGame):
         # self.scene = arcade.Scene.from_tilemap(self.tile_map)
         self.check_points_list = [(round(x.shape[0]), round(x.shape[1])) for x in self.tile_map.get_obgect_by_name("check_point", "Mark")][::-1]
         self.current_check_point = load_settings('saves/save.yaml')["player"]["pos"]
-        print(load_settings('saves/save.yaml'))
+
         arcade.exit()
 
         self.save_player_pos()

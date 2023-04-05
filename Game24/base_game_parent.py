@@ -163,11 +163,13 @@ class BaseGame(BaseReg):
         elif key == arcade.key.S:
             self.down_pressed = False
 
-    # def on_mouse_motion(self, x, y, dx, dy):
-    #     for obj in self.text_interface2.nps_message_list:
-    #         coll = obj.collides_with_point((x, y))
-    #         if coll:
-    #             self.text_interface2.set_hover(obj)
+    def on_mouse_motion(self, x, y, dx, dy):
+        for obj in self.text_interface2.nps_message_list:
+            coll = obj.collides_with_point((x, y))
+            if coll:
+                self.text_interface2.hover(obj, 255)
+            else:
+                self.text_interface2.hover(obj, 90)
 
     def on_mouse_press(self, x, y, button, modifiers):
         if button == 4:

@@ -27,7 +27,7 @@ class Icon(arcade.Sprite):
 class Message:
     def __init__(self, nps_name, content, bg: arcade.Sprite):
         self.name = nps_name
-        print(content, 1111111)
+
         r_list = content['вопрос']
         random.shuffle(r_list)
         nps_repl = text_wrap(r_list[0], bg.width)
@@ -59,7 +59,7 @@ class Message:
         x = mess.left + 60
         y = mess.bottom
         for r, t in zip(self.reply_list, self.transition_list):
-            reply = Reply(r, x, y-20, t)
+            reply = Reply(r, x, y-30, t)
             y = reply.bottom
             self.nps_content.extend(reply.content)
 
@@ -75,10 +75,17 @@ class Reply:
         my = y
         self.content = arcade.SpriteList()
         mess = arcade.create_text_sprite(text, 0, 0, color=arcade.color.BLACK, font_size=FONT_SIZE, font_name='helvetica')
-        print(mess.hit_box)
-        sprite = arcade.Sprite()
-        # sprite.top = my
-        # sprite.left = mx
+
+        # texture = arcade.load_texture(HOVER, hit_box_detail=None)
+        sprite = arcade.Sprite(HOVER)
+        sprite.alpha = 0
+
+        sprite.name = name
+        sprite.parent = self
+        sprite.width = mess.width + 200
+        sprite.height = mess.height + 18
+        sprite.top = my+10
+        sprite.left = mx - 10
 
         mess.name = name
         mess.parent = self
@@ -89,23 +96,21 @@ class Reply:
         mess.left = mx
         self.bottom = mess.bottom
 
-        icon = arcade.Sprite(CHECK)
-        icon.name = name
-        icon.parent = self
-        icon.scale = 0.6
-        icon.top = self.iy
-        icon.left = self.ix
+        self.icon = arcade.Sprite(CHECK)
+        self.icon.alpha = 90
+        self.icon.name = name
+        self.icon.parent = self
+        self.icon.scale = 0.5
+        self.icon.top = self.iy+4
+        self.icon.left = self.ix - 6
         self.content.append(mess)
-        self.content.append(icon)
+        self.content.append(self.icon)
+        self.content.append(sprite)
 
-    def set_icon(self):
-        print("eeeeeee")
-        icon = arcade.Sprite(CHECKGREEN)
-        icon.name = self.name
-        icon.scale = 0.6
-        icon.top = self.iy
-        icon.left = self.ix
-        self.content.append(icon)
+
+    def hover(self, v):
+        self.icon.alpha = v
+
 
 
 
@@ -127,9 +132,8 @@ class TextInterface2:
     def set_visible(self, b):
         self._visible = b
 
-    # def set_hover(self, obj: arcade.Sprite):
-    #
-    #     obj.parent.set_icon()
+    def hover(self, obj: arcade.Sprite, v):
+        obj.parent.hover(v)
 
 
     def draw(self):

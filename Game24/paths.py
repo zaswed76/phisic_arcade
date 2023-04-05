@@ -11,6 +11,6 @@ CLOSE_TEXT_INTERFACE = ROOT / "myresource" / 'icons' / 'close.png'
 RIGHT_ARROW = ROOT / "myresource" / 'icons' / 'right.png'
 LEFT_ARROW = ROOT / "myresource" / 'icons' / 'left.png'
 CHECK = ROOT / "myresource" / 'icons' / 'check.png'
-CHECKGREEN = ROOT / "myresource" / 'icons' / 'checkgreen.png'
+HOVER = ROOT / "myresource" / 'icons' / 'hover.png'
 FONT_HELVETICA = ROOT / "myresource" / 'fonts'/ 'helvetica_regular.otf'
 LEVELS = ROOT / "levels"

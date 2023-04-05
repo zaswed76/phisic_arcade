@@ -1,5 +1,5 @@
 import arcade
-from controller import Controller
+
 from gui.start_menu import MenuView
 from game import GameView
 

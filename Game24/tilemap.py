@@ -6,6 +6,8 @@ class TileMap(arcade.TileMap):
         super().__init__(*args)
 
     def get_obgect_by_name(self, name, layer_name):
+        lst = []
         for obj in self.object_lists.get(layer_name, list()):
             if obj.name == name:
-                return obj
+                lst.append(obj)
+        return lst

@@ -1,9 +1,14 @@
 import arcade
+from paths import *
+
+
 
 class ItemSprite(arcade.Sprite):
-    def __init__(self, texture):
+    def __init__(self, object):
         super().__init__()
-        self.texture = texture
+        self.texture = object.texture
+        self.name = object.properties.get("name")
+
 
 
 
@@ -11,8 +16,9 @@ class ItemSprite(arcade.Sprite):
 class CellSprite(arcade.Sprite):
     def __init__(self):
         super().__init__()
-        self.activ = arcade.load_texture('resources/icons/activ.png')
-        self.notactive = arcade.load_texture('resources/icons/notactiv.png')
+        print(ICON_iNTERFACE)
+        self.activ = arcade.load_texture(ICON_iNTERFACE/'activ.png')
+        self.notactive = arcade.load_texture(ICON_iNTERFACE/'notactiv.png')
         self.check = False
 
     def toggle(self):
@@ -27,7 +33,7 @@ class CellSprite(arcade.Sprite):
 
 
 class Interface:
-    def __init__(self, img, left=464, top=28, scale=0.4, border=8, item_scale=0.5):
+    def __init__(self, img, left=64, top=28, scale=0.4, border=8, item_scale=0.5):
         self.item_scale = item_scale
         self.border = border
         self.scale = scale
@@ -56,9 +62,20 @@ class Interface:
         if len(self.invertory.sprite_list) < 2:
             self.cell_list.sprite_list[0].toggle()
 
+    def pop_item(self, item_name):
+        for i in self.invertory:
+            if i.name == item_name:
+                _i = i
+                i.kill()
+                return _i
+
+
     def get_item(self, item_name):
         for i in self.invertory:
-            print(i, 222222)
+            if i.name == item_name:
+                return True
+        else:
+            return False
 
     def update(self):
         self.cell_list.update()

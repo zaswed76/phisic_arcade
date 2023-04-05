@@ -1,10 +1,18 @@
 LAYER_NAME_PLATFORMS = "Platforms"
 LAYER_NAME_PLAYER = "Player"
 LAYER_NAME_DINAMIC= "Dinamic"
+LAYER_NAME_DINAMIC_KEY= "Dinamic_key"
 LAYER_NAME_BUTTON= "Buttons"
 LAYER_NAME_MOOVING = "Mooving platform"
+LAYER_NAME_GATE = "gate"
 LAYER_NAME_MOOVING_ON_ITEM = "Mooving platform on item"
 LAYER_NAME_LADDERS = "Ladders"
+LAYER_NAME_OBJECTPLATFORM = "objectplatform"
+LAYER_NAME_DONT_TOUCH = "Dont_touch"
+LAYER_NAME_INVERTORY = "invertory"
+LAYER_NAME_ANIMATION = "animation"
+LAYER_NAME_BULLET = "bullet"
+LAYER_NAME_NPS = "nps"
 
 
 
@@ -13,9 +21,10 @@ LAYER_NAME_LADDERS = "Ladders"
 # ###############     Game   #####################################
 
 SPRITE_SCALING_TILES = 1
+_GRAVITY = 1300
 GRAVITY = 1300
 DEFAULT_DAMPING = 1
-PLATFORMS_FRICTION = 0.9
+PLATFORMS_FRICTION = 1
 TILE_SCALING = 1
 DISTANCE_TO_CHANGE_TEXTURE = 20
 SPRITE_IMAGE_SIZE = 64
@@ -25,15 +34,22 @@ SPRITE_IMAGE_SIZE = 64
 # ###############     PLAYER    #####################################
 # ###################################################################
 
-SPRITE_SCALING_PLAYER = 1
+SPRITE_SCALING_PLAYER = 0.4
 PLAYER_DAMPING = 1
-PLAYER_MASS = 2.0
+PLAYER_MASS = 4.0
 
 PLAYER_START_GRID = 6, 23
 # Friction between objects
-PLAYER_FRICTION = 0.9
+PLAYER_FRICTION = 1
 WALL_FRICTION = 1
-DYNAMIC_ITEM_FRICTION = 0.7
+
+DYNAMIC_ITEM_FRICTION = 0.9
+DYNAMIC_MASS = 2
+DYNAMIC_ELASTICITY = 0.2 # 0 нет отскока
+DYNAMIC_DAMPING = 1 # 0 количество скорости, которое сохраняется до следующего тика.
+# значение 1,0 означает отсутствие потери скорости,
+# а значение 0,9 означает потерю скорости на 10% и т. д.
+
 
 # Mass (defaults to 1)
 
@@ -43,13 +59,13 @@ PLAYER_MAX_HORIZONTAL_SPEED = 500
 PLAYER_MAX_VERTICAL_SPEED = 800
 
 # Force applied while on the ground
-PLAYER_MOVE_FORCE_ON_GROUND = 5500
+PLAYER_MOVE_FORCE_ON_GROUND = 5900
 
 # Force applied when moving left/right in the air
-PLAYER_MOVE_FORCE_IN_AIR = 3000
+PLAYER_MOVE_FORCE_IN_AIR = 4000
 
 # Strength of a jump
-PLAYER_JUMP_IMPULSE = 1400
+PLAYER_JUMP_IMPULSE = 6700
 
 # Close enough to not-moving to have the animation go to idle.
 DEAD_ZONE = 0.1
@@ -58,6 +74,8 @@ DEAD_ZONE = 0.1
 RIGHT_FACING = 0
 LEFT_FACING = 1
 
+
+BULLET_MOVE_FORCE = 150000
 
 
 

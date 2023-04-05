@@ -1,7 +1,8 @@
 import math
 from typing import Optional
 import arcade
-from constants import *
+from const import *
+from paths import *
 
 class PlayerError(Exception):
     def __init__(self, *args):
@@ -33,6 +34,16 @@ class PlayerSprite(arcade.Sprite):
         # Set our scale
         self.live = live
         self.scale = SPRITE_SCALING_PLAYER
+        # Images from Kenney.nl's Character pack
+        # main_path = ":resources:images/animated_characters/female_adventurer/femaleAdventurer"
+        main_path = ":resources:images/animated_characters/female_person/femalePerson"
+        main_path = ":resources:images/animated_characters/male_person/malePerson"
+        # main_path = ":resources:images/animated_characters/male_adventurer/maleAdventurer"
+        # main_path = ":resources:images/animated_characters/zombie/zombie"
+        # main_path = ":resources:images/animated_characters/robot/robot"
+        self.root = PERSON
+        # Load textures for idle standing
+        pth = r'D:\1_SYNS_ORIGINAL\0SYNC\python_projects\2023\phisic_arcade\Game24\myresource\person_girl\stand.png'
 
         # Images from Kenney.nl's Character pack
         # main_path = ":resources:images/animated_characters/female_adventurer/femaleAdventurer"
@@ -43,22 +54,43 @@ class PlayerSprite(arcade.Sprite):
         # main_path = ":resources:images/animated_characters/robot/robot"
 
         # Load textures for idle standing
-        self.idle_texture_pair = arcade.load_texture_pair(f"{main_path}_idle.png",
+        # self.idle_texture_pair = arcade.load_texture_pair(f"{main_path}_idle.png",
+        #                                                   hit_box_algorithm=hit_box_algorithm)
+        # self.jump_texture_pair = arcade.load_texture_pair(f"{main_path}_jump.png")
+        # self.fall_texture_pair = arcade.load_texture_pair(f"{main_path}_fall.png")
+        #
+        # # Load textures for walking
+        # self.walk_textures = []
+        # for i in range(8):
+        #     texture = arcade.load_texture_pair(f"{main_path}_walk{i}.png")
+        #     self.walk_textures.append(texture)
+        #
+        # # Load textures for climbing
+        # self.climbing_textures = []
+        # texture = arcade.load_texture(f"{main_path}_climb0.png")
+        # self.climbing_textures.append(texture)
+        # texture = arcade.load_texture(f"{main_path}_climb1.png")
+        # self.climbing_textures.append(texture)
+        #
+        # # Set the initial texture
+        # self.texture = self.idle_texture_pair[0]
+
+        self.idle_texture_pair = arcade.load_texture_pair(PERSON / 'stand.png',
                                                           hit_box_algorithm=hit_box_algorithm)
-        self.jump_texture_pair = arcade.load_texture_pair(f"{main_path}_jump.png")
-        self.fall_texture_pair = arcade.load_texture_pair(f"{main_path}_fall.png")
+        self.jump_texture_pair = arcade.load_texture_pair(PERSON / 'jump.png')
+        self.fall_texture_pair = arcade.load_texture_pair(PERSON / "jump.png")
 
         # Load textures for walking
         self.walk_textures = []
-        for i in range(8):
-            texture = arcade.load_texture_pair(f"{main_path}_walk{i}.png")
+        for i in range(18, 28):
+            texture = arcade.load_texture_pair(f"{PERSON}/run_000{i}.png")
             self.walk_textures.append(texture)
 
         # Load textures for climbing
         self.climbing_textures = []
-        texture = arcade.load_texture(f"{main_path}_climb0.png")
+        texture = arcade.load_texture(f"{PERSON}/climb_1.png")
         self.climbing_textures.append(texture)
-        texture = arcade.load_texture(f"{main_path}_climb1.png")
+        texture = arcade.load_texture(f"{PERSON}/climb_2.png")
         self.climbing_textures.append(texture)
 
         # Set the initial texture
@@ -79,6 +111,14 @@ class PlayerSprite(arcade.Sprite):
 
         self.ladder_list = ladder_list
         self.is_on_ladder = False
+
+    def turn_texture_right(self):
+        self.character_face_direction = RIGHT_FACING
+        self.texture = self.idle_texture_pair[self.character_face_direction]
+
+    def turn_texture_left(self):
+        self.character_face_direction = LEFT_FACING
+        self.texture = self.idle_texture_pair[self.character_face_direction]
 
     def pymunk_moved(self, physics_engine, dx, dy, d_angle):
         """ Handle being moved by the pymunk engine """
@@ -200,3 +240,6 @@ class PlayerSprite(arcade.Sprite):
             self.physics_engine.set_friction(self, 1.0)
 
         # Move items in the physics engine
+
+    def on_update(self, delta_time: float = 1 / 60):
+        self.update()

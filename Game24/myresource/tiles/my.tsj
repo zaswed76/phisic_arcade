@@ -8,7 +8,7 @@
  "margin":0,
  "name":"my",
  "spacing":0,
- "tilecount":66,
+ "tilecount":67,
  "tiledversion":"1.10.0",
  "tileheight":256,
  "tiles":[
@@ -988,6 +988,12 @@
          "image":"..\/tiles64\/stoun4.png",
          "imageheight":64,
          "imagewidth":64
+        }, 
+        {
+         "id":220,
+         "image":"..\/tiles64\/mushroom.png",
+         "imageheight":256,
+         "imagewidth":161
         }],
  "tilewidth":640,
  "type":"tileset",

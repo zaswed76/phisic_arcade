@@ -161,7 +161,7 @@ class GameView(BaseGame):
         self.physics_engine.set_velocity(self, velocity)
 
     def set_curreent_nps(self, nps):
-        print('22222')
+
         self.curreent_nps = nps
 
     def setup(self):
@@ -252,7 +252,7 @@ class GameView(BaseGame):
         #     self.setup()
         # self.physics_engine.add_collision_handler("player", "Dont_touch", post_handler=player_hit_handler)
     def save_game(self):
-            self.current_check_point = self.player_sprite.center_x+10, self.player_sprite.center_y + 192
+            self.current_check_point = self.player_sprite.center_x+10, self.player_sprite.center_y + 64
             self.save_ckick = True
             self.tic = int(time.perf_counter())
 
@@ -281,7 +281,7 @@ class GameView(BaseGame):
                 self.save_ckick = False
 
         if self._xn is not None:
-            print('@@@@@@@@@@@@@@@@@@@@@@@')
+            # print('@@@@@@@@@@@@@@@@@@@@@@@')
             if self._xn[1] < 0:
                 if self.player_sprite.center_x < self._xn[0]:
                     self.left_pressed = False
@@ -434,6 +434,7 @@ class GameView(BaseGame):
                     # print(diff_y3, '!!!!!')
 
                     self.check_sprite(LAYER_NAME_MOOVING, pl2.properties["link"], True)
+                    self.check_sprite(LAYER_NAME_GATE, pl2.properties["link"], True)
                 elif pl2.center_y < pl2.properties['check_y']:
                     pl2.change_y = 2
 
@@ -448,13 +449,19 @@ class GameView(BaseGame):
 
     def check_sprite(self, list_name, sprite_name, check):
         for pl in self.scene[list_name]:
-
             if pl.properties['name'] == sprite_name:
-
                 if pl.properties['name'] == 'p2':
                     pass
                     # print(pl.properties['name'], "!!!!")
+                nps = pl.properties.get('condition', None)
+                if nps is not None:
+                    self.add_item_to_nps(LAYER_NAME_NPS, nps, pl.properties['name'])
                 pl.properties['active'] = check
+
+    def add_item_to_nps(self, list_name, nps_name, item):
+        for nps in self.scene[list_name]:
+            if nps.obgect.name == nps_name:
+                nps.invertory.append(item)
 
     def update_mooving_platform_on_item(self, delta_time):
         """

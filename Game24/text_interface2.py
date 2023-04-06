@@ -47,6 +47,7 @@ class Message:
         mess.name = self.name
         mess.top = my
         mess.left = mx
+
         image = ANIMATION_OBJECTS / nps_name / "icon.png"
         icon = arcade.Sprite(image)
         icon.name = self.name
@@ -59,7 +60,7 @@ class Message:
         x = mess.left + 60
         y = mess.bottom
         for r, t in zip(self.reply_list, self.transition_list):
-            reply = Reply(r, x, y-30, t)
+            reply = Reply(r, x, y-45, t)
             y = reply.bottom
             self.nps_content.extend(reply.content)
 
@@ -152,6 +153,7 @@ class TextInterface2:
         self.message_list.clear()
         self.nps_message_list.clear()
         m = Message(nps, content, self.bg)
+
         self.message_list.extend(m.content)
         self.nps_message_list.extend(m.nps_content)
 

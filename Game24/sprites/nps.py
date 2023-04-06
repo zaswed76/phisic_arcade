@@ -7,6 +7,10 @@ from service import *
 from paths import *
 import random
 
+
+from aichat import aichat
+
+
 class NpsContent:
     def __init__(self, nps_name, level):
         self.name = nps_name
@@ -19,6 +23,10 @@ class NpsContent:
         return self._data
 
     def get_message(self, key):
+        """
+
+        :rtype: dict
+        """
         m = self._data['messages'].get(key, 'exit')
         return m
 
@@ -61,7 +69,7 @@ class Say:
             self.current_state = Say.MEETING_OTHER_MET
 
     def set_status(self, status):
-        print(status)
+        # print(status)
 
         if status == Say.NOT_WAITING:
 
@@ -94,6 +102,7 @@ class Entity(arcade.Sprite):
 
     def __init__(self, game, obgect, physics_engine):
         super().__init__()
+        self.lastrespone = None
         self.invertory = []
         self.number_meet = 0
         self.physics_engine = physics_engine
@@ -149,18 +158,31 @@ class Entity(arcade.Sprite):
                 self.nps_content = NpsContent(self.obgect.name, self.game.level)
 
                 nnn = 0
-                condition = self.nps_content.condition
+                self.condition = self.nps_content.condition
 
-                if condition and condition not in self.invertory:
+
+                self.player_condition = False
+                for i in self.game.interface.invertory:
+
+                    if i.name == self.condition:
+                        self.player_condition = True
+
+
+                print(type(self.condition))
+                if self.condition and self.condition not in self.invertory:
                     # есть условие но его нет в инвертаре нпс
                     cond = False
                 else:
                     # есть у нпс или нет условия
                     cond = True
+
+
                 meet = self.number_meet
                 if meet > 0:
                     meet = 1
-                key = f'{nnn}, {meet}, {cond}'
+                key = f'{nnn}, {meet}, {cond}, {self.player_condition}'
+                print(key)
+                print('#######################################')
 
                 self.set_message(key)
                 self.number_meet += 1
@@ -173,7 +195,26 @@ class Entity(arcade.Sprite):
             self.game.text_interface2.set_visible(False)
             self.state = "wait"
             return
+        if key == "exit_give":
+
+            self.game.set_pause(False)
+            self.game.text_interface2.set_visible(False)
+            self.state = "wait"
+            self.game.interface.pop_item(self.condition)
+            self.invertory.append(self.condition)
+            return
+
         mess = self.nps_content.get_message(key)
+
+        if mess['вопрос'] ==["ai"] or mess['вопрос'] == self.lastrespone:
+
+            result = aichat("скажи щось мудре одним реченням")
+
+            mess.update({'вопрос': [f'{result}']})
+            self.lastrespone = mess['вопрос']
+
+
+
         self.game.text_interface2.set_message_nps(self.obgect.name, mess)
 
 

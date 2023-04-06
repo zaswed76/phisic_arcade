@@ -8,7 +8,7 @@
  "margin":0,
  "name":"my",
  "spacing":0,
- "tilecount":64,
+ "tilecount":66,
  "tiledversion":"1.10.0",
  "tileheight":256,
  "tiles":[
@@ -974,6 +974,18 @@
         {
          "id":217,
          "image":"..\/tiles64\/stoun2.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":218,
+         "image":"..\/tiles64\/stoun3.png",
+         "imageheight":64,
+         "imagewidth":64
+        }, 
+        {
+         "id":219,
+         "image":"..\/tiles64\/stoun4.png",
          "imageheight":64,
          "imagewidth":64
         }],

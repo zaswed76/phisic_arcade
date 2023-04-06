@@ -1,25 +1,23 @@
-import yaml
-
-def load_settings(file):
-    with open(file) as f:
-        templates = yaml.safe_load(f)
-    return templates
+import os
+import openai
+api = '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'
 
 
-def save_settings(file, data):
-    with open(file, 'w') as f:
-        yaml.dump(data, f)
+import openai
 
-data = {(1, False): "text"}
+openai.api_key = api
 
 
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+            {"role": "system", "content": "You are a cat"},
+            {"role": "user", "content": "скажи щось розумне одним реченням"},
+        ]
+)
 
-kt = (0, 1, False)
-a = [str(x) for x in kt]
-key = ", ".join(a)
+result = ''
+for choice in response.choices:
+    result += choice.message.content
 
-m = load_settings("1_contact.yaml")['garry']
-print(m)
-
-
-
+print(result)

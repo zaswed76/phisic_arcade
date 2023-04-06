@@ -161,20 +161,20 @@
         },
         "map_1.json": {
             "expandedGroupLayers": [
-                22,
-                3
+                3,
+                22
             ],
             "expandedObjectLayers": [
+                10,
                 9,
                 13,
-                10,
                 12
             ],
-            "scale": 4,
-            "selectedLayer": 16,
+            "scale": 0.25,
+            "selectedLayer": 13,
             "viewCenter": {
-                "x": 6271.875,
-                "y": 1344.25
+                "x": 1358,
+                "y": 1892
             }
         },
         "map_1.json#tiles64 — копия": {

@@ -136,7 +136,7 @@ class BaseGame(BaseReg):
             self.player_sprite.pymunk.gravity = (0, -1300)
         if modifiers == arcade.key.MOD_SHIFT and key == arcade.key.R:
             self.current_check_point = self.check_points_list[-1]
-            print("uuu")
+
             self.setup()
 
 
@@ -189,13 +189,11 @@ class BaseGame(BaseReg):
                         arcade.exit()
 
         else:
-            pass
 
-        # if not self.game_pause:
-        #     if button == 1:
-        #         print(x, y)
-        #         self.create_bullet(x, y)
-        #         self.player_sprite.texture = self.player_sprite.jump_texture_pair[0]
+            if button == 1:
+
+                self.create_bullet(x, y)
+                self.player_sprite.texture = self.player_sprite.jump_texture_pair[0]
         # else:
         #     for btn in self.text_interface.bg_list:
         #         if btn.collides_with_point((x, y)):

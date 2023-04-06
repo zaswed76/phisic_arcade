@@ -34,7 +34,7 @@ SPRITE_IMAGE_SIZE = 64
 # ###############     PLAYER    #####################################
 # ###################################################################
 
-SPRITE_SCALING_PLAYER = 0.4
+SPRITE_SCALING_PLAYER = 0.8
 PLAYER_DAMPING = 1
 PLAYER_MASS = 4.0
 

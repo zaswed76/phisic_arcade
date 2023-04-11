@@ -291,7 +291,7 @@
         "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tiles/planet.tsj"
     ],
     "project": "безымянный.tiled-project",
-    "property.type": "float",
+    "property.type": "string",
     "recentFiles": [
         "map_1.json",
         "D:/1_SYNS_ORIGINAL/0SYNC/python_projects/2023/phisic_arcade/Game24/myresource/tilesheet/tiles64_2.tsj",

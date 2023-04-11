@@ -341,8 +341,8 @@
                  "type":"",
                  "visible":true,
                  "width":63,
-                 "x":126.5,
-                 "y":3112.5
+                 "x":3443.04545454545,
+                 "y":2546.25757575758
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -420,6 +420,24 @@
                          "width":64,
                          "x":1919.75,
                          "y":2965.33333333333
+                        }, 
+                        {
+                         "gid":382,
+                         "height":68,
+                         "id":558,
+                         "name":"",
+                         "properties":[
+                                {
+                                 "name":"link",
+                                 "type":"string",
+                                 "value":"aaaa"
+                                }],
+                         "rotation":0,
+                         "type":"",
+                         "visible":true,
+                         "width":64,
+                         "x":64.6666666666667,
+                         "y":3134.66666666667
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -497,6 +515,39 @@
                          "width":258,
                          "x":894,
                          "y":3001
+                        }, 
+                        {
+                         "gid":386,
+                         "height":56.5600392828939,
+                         "id":489,
+                         "name":"aaaa",
+                         "properties":[
+                                {
+                                 "name":"active",
+                                 "type":"bool",
+                                 "value":false
+                                }, 
+                                {
+                                 "name":"boundary_bottom",
+                                 "type":"float",
+                                 "value":64
+                                }, 
+                                {
+                                 "name":"boundary_top",
+                                 "type":"float",
+                                 "value":528
+                                }, 
+                                {
+                                 "name":"change_y",
+                                 "type":"float",
+                                 "value":2
+                                }],
+                         "rotation":90.0172802075252,
+                         "type":"button_activ",
+                         "visible":true,
+                         "width":251.126574416049,
+                         "x":2119.33761067309,
+                         "y":2883.03665335296
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -512,39 +563,6 @@
                         {
                          "gid":386,
                          "height":30.518018018018,
-                         "id":489,
-                         "name":"",
-                         "properties":[
-                                {
-                                 "name":"active",
-                                 "type":"bool",
-                                 "value":false
-                                }, 
-                                {
-                                 "name":"boundary_left",
-                                 "type":"float",
-                                 "value":1663
-                                }, 
-                                {
-                                 "name":"boundary_right",
-                                 "type":"float",
-                                 "value":2400
-                                }, 
-                                {
-                                 "name":"change_x",
-                                 "type":"float",
-                                 "value":2.5
-                                }],
-                         "rotation":0,
-                         "type":"on_press",
-                         "visible":true,
-                         "width":135.5,
-                         "x":1619.5,
-                         "y":3125.01801801802
-                        }, 
-                        {
-                         "gid":386,
-                         "height":30.518018018018,
                          "id":547,
                          "name":"",
                          "properties":[
@@ -556,7 +574,7 @@
                                 {
                                  "name":"boundary_left",
                                  "type":"float",
-                                 "value":2176
+                                 "value":2240
                                 }, 
                                 {
                                  "name":"boundary_right",
@@ -572,8 +590,8 @@
                          "type":"on_press",
                          "visible":true,
                          "width":135.5,
-                         "x":2111.5,
-                         "y":3131.68468468469
+                         "x":2203.5,
+                         "y":3132.35135135135
                         }],
                  "opacity":1,
                  "type":"objectgroup",
@@ -992,7 +1010,7 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":2310.66666666666,
+                 "x":2345.33333333333,
                  "y":3134.66666666667
                 }, 
                 {
@@ -1106,8 +1124,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1278.90909090909,
-                 "y":2922.69696969697
+                 "x":1103.57575757576,
+                 "y":3056.69696969697
                 }, 
                 {
                  "height":0,
@@ -1248,7 +1266,7 @@
          "y":0
         }],
  "nextlayerid":40,
- "nextobjectid":558,
+ "nextobjectid":559,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.0",

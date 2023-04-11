@@ -8,7 +8,7 @@ from paths import *
 import random
 
 
-from aichat import aichat
+# from aichat import aichat
 
 
 class NpsContent:
@@ -181,9 +181,8 @@ class Entity(arcade.Sprite):
                 if meet > 0:
                     meet = 1
                 key = f'{nnn}, {meet}, {cond}, {self.player_condition}'
-                print(key)
-                print('#######################################')
 
+                print(key)
                 self.set_message(key)
                 self.number_meet += 1
                 self.game.set_pause(True)
@@ -194,6 +193,7 @@ class Entity(arcade.Sprite):
             self.game.set_pause(False)
             self.game.text_interface2.set_visible(False)
             self.state = "wait"
+            print('eeeeee')
             return
         if key == "exit_give":
 
@@ -205,14 +205,6 @@ class Entity(arcade.Sprite):
             return
 
         mess = self.nps_content.get_message(key)
-
-        if mess['вопрос'] ==["ai"] or mess['вопрос'] == self.lastrespone:
-
-            result = aichat("скажи щось мудре одним реченням")
-
-            mess.update({'вопрос': [f'{result}']})
-            self.lastrespone = mess['вопрос']
-
 
 
         self.game.text_interface2.set_message_nps(self.obgect.name, mess)

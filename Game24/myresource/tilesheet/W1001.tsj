@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"..\/animation_objects\/waterfall\/W1001.png",
+ "imageheight":512,
+ "imagewidth":256,
+ "margin":0,
+ "name":"W1001",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.10.0",
+ "tileheight":512,
+ "tilewidth":256,
+ "type":"tileset",
+ "version":"1.10"
+}

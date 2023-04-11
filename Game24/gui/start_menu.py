@@ -12,6 +12,7 @@ class MenuView(arcade.View):
         self.width = size[0]
         self.height = size[1]
         self.text = 0
+
     def on_show(self):
         arcade.set_background_color(arcade.color.WHITE)
 

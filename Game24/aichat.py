@@ -1,6 +1,6 @@
 
 
-api = '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'
+api = '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'
 
 
 import openai
@@ -19,4 +19,4 @@ def aichat(key):
             return result
 if __name__ == "__main__":
 
-    print(aichat("скільки буде три плюс 3"))
+    print(aichat("скажи щось смішне одним реченням"))

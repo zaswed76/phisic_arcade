@@ -1,0 +1,176 @@
+robot_nlo:
+    live: 100
+    bullet_blocks:
+#
+#                    - b_p:
+#                        config_bullet: STANDART_BULLET
+#                        type: BulletSingleBlock
+#                        bullet_name: '03'
+#                        explosion: EXPLOSION_TEXTURE_LIST_ice
+#                        direct: player
+#                        delay: 1
+#                        bullet_scale: 1
+#                        force: 90000
+#                        explosion_scale: 1
+#                        pos: left
+#                        kill_distance: 2000
+#                    - b_p2:
+#                        config_bullet: STANDART_BULLET
+#                        type: BulletSingleBlock
+#                        bullet_name: '04'
+#                        explosion: EXPLOSION_TEXTURE_LIST_ice
+#                        direct: bottom
+#                        delay: 1
+#                        bullet_scale: 1
+#                        force: 50000
+#                        explosion_scale: 1
+#                        pos: right
+#                        kill_distance: 2000
+#
+#                    - b_p2:
+#                        config_bullet: STANDART_BULLET
+#                        type: BulletSingleBlock
+#                        bullet_name: '03'
+#                        explosion: EXPLOSION_TEXTURE_LIST_ice
+#                        direct: player
+#                        delay: 0.8
+#                        bullet_scale: 1
+#                        force: 120000
+#                        explosion_scale: 1
+#                        pos: right
+#                        kill_distance: 2000
+#
+#                    - b_p5:
+#                        config_bullet: BOMB_BULLET
+#                        type: BulletSingleBlock
+#                        bullet_name: 'bomb1'
+#                        explosion: EXPLOSION_TEXTURE_LIST_ice
+#                        direct: bottom
+#                        delay: 0.8
+#                        bullet_scale: 0.3
+#                        force: 1200
+#                        explosion_scale: 1
+#                        pos: center
+#                        kill_distance: 2000
+#
+#robot_nlo2:
+#    bullet_blocks:
+#
+#                    - b_p3:
+#                        config_bullet: STANDART_BULLET
+#                        type: BulletSingleBlock
+#                        bullet_name: '03'
+#                        explosion: None
+#                        direct: player
+#                        delay: 0.6
+#                        bullet_scale: 1
+#                        force: 100000
+#                        explosion_scale: 1
+#                        pos: left
+#                        kill_distance: 2000
+#
+#                    - b_p4:
+#                        config_bullet: STANDART_BULLET
+#                        type: BulletSingleBlock
+#                        bullet_name: '03'
+#                        explosion: None
+#                        direct: bottom
+#                        delay: 0.8
+#                        bullet_scale: 1
+#                        force: 120000
+#                        explosion_scale: 1
+#                        pos: right
+#                        kill_distance: 2000
+#
+#
+##                    - b_right:
+##                        config_bullet: STANDART_BULLET
+##                        type: BulletSingleBlock
+##                        bullet_name: '03'
+##                        explosion: EXPLOSION_TEXTURE_LIST_ice
+##                        direct: bottom
+##                        delay: 1.2
+##                        bullet_scale: 1
+##                        force: 40000
+##                        explosion_scale: 1
+##                        pos: right
+##
+##                    - b_top:
+##                        config_bullet: BOMB_BULLET
+##                        type: BulletSingleBlock
+##                        bullet_name: bomb1
+##                        explosion: EXPLOSION_TEXTURE_LIST_fiolet_1_exp
+##                        direct: top
+##                        delay: 1.1
+##                        bullet_scale: 0.6
+##                        force: 10000
+##                        explosion_scale: 2
+##                        pos: top
+#
+#
+##robot_man:
+##    bullet_blocks:
+##                    - b_center2:
+##                        config_bullet: STANDART_BULLET
+##                        type: BulletSingleBlock
+##                        bullet_name: '06'
+##                        explosion: None
+##                        direct: right
+##                        delay: 1
+##                        bullet_scale: 1
+##                        force: 40000
+##                        explosion_scale: 1
+##                        pos: center
+#
+#
+#
+##
+##robot_man2:
+##    bullet_blocks:
+##                    - b_center4:
+##                        config_bullet: STANDART_BULLET
+##                        type: BulletSingleBlock
+##                        bullet_name: '11'
+##                        explosion: EXPLOSION_TEXTURE_LIST_ice
+##                        direct: right
+##                        delay: 0.4
+##                        bullet_scale: 1
+##                        force: 40000
+##                        explosion_scale: 1
+##                        pos: center
+##
+##                    - b_center5:
+##                        config_bullet: STANDART_BULLET
+##                        type: BulletSingleBlock
+##                        bullet_name: '12'
+##                        explosion: EXPLOSION_TEXTURE_LIST_ice
+##                        direct: left
+##                        delay: 0.4
+##                        bullet_scale: 1
+##                        force: 40000
+##                        explosion_scale: 1
+##                        pos: center
+##
+##                    - b_center6:
+##                        config_bullet: STANDART_BULLET
+##                        type: BulletSingleBlock
+##                        bullet_name: '11'
+##                        explosion: EXPLOSION_TEXTURE_LIST_ice
+##                        direct: right
+##                        delay: 0.4
+##                        bullet_scale: 1
+##                        force: 40000
+##                        explosion_scale: 1
+##                        pos: center
+##
+##                    - b_center7:
+##                        config_bullet: STANDART_BULLET
+##                        type: BulletSingleBlock
+##                        bullet_name: '12'
+##                        explosion: EXPLOSION_TEXTURE_LIST_ice
+##                        direct: player
+##                        delay: 0.4
+##                        bullet_scale: 1
+##                        force: 40000
+##                        explosion_scale: 1
+##                        pos: center

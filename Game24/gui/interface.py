@@ -33,7 +33,7 @@ class CellSprite(arcade.Sprite):
 
 
 class Interface:
-    def __init__(self, img, left=64, top=28, scale=0.4, border=8, item_scale=0.5):
+    def __init__(self, img, left=64, top=28, scale=0.4, border=8, item_scale=0.8):
         self.item_scale = item_scale
         self.border = border
         self.scale = scale
@@ -54,11 +54,15 @@ class Interface:
         self.cell_list.append(cell)
 
     def append_item(self, item):
-        x, y = self.cell_list.sprite_list[0].position
+
+
         item = ItemSprite(item)
         item.scale = self.item_scale
-        item.set_position(x, y)
+
         self.invertory.append(item)
+        pos = len(self.invertory.sprite_list)-1
+        x, y = self.cell_list.sprite_list[pos].position
+        item.set_position(x, y)
         if len(self.invertory.sprite_list) < 2:
             self.cell_list.sprite_list[0].toggle()
 

@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"..\/tiles64\/trava.png",
+ "imageheight":32,
+ "imagewidth":174,
+ "margin":0,
+ "name":"trava",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.10.0",
+ "tileheight":24,
+ "tilewidth":128,
+ "type":"tileset",
+ "version":"1.10"
+}

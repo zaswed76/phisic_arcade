@@ -1,0 +1,23 @@
+EXP96:
+    columns: 5
+    count: 20
+    sprite_width: 96
+    sprite_height: 96
+
+ice_exp:
+    columns: 4
+    count: 16
+    sprite_width: 182
+    sprite_height: 206
+
+fiolet_1_exp:
+    columns: 4
+    count: 16
+    sprite_width: 182
+    sprite_height: 206
+
+exp111:
+    columns: 5
+    count: 36
+    sprite_width: 140
+    sprite_height: 140

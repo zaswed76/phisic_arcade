@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <tileset firstgid="1" source="lava.tsj"/>
+ <object gid="1" width="128" height="110">
+  <properties>
+   <property name="alpha" type="int" value="255"/>
+   <property name="flipH" type="bool" value="false"/>
+   <property name="h" type="int" value="110"/>
+   <property name="speed" type="int" value="5"/>
+   <property name="w" type="int" value="128"/>
+  </properties>
+ </object>
+</template>

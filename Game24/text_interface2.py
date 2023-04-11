@@ -83,10 +83,10 @@ class Reply:
 
         sprite.name = name
         sprite.parent = self
-        sprite.width = mess.width + 200
+        sprite.width = mess.width + 300
         sprite.height = mess.height + 18
         sprite.top = my+10
-        sprite.left = mx - 10
+        sprite.left = mx - 100
 
         mess.name = name
         mess.parent = self
@@ -122,7 +122,7 @@ class TextInterface2:
         self.bg_list = arcade.SpriteList()
         self.message_list = arcade.SpriteList()
         self.nps_message_list = arcade.SpriteList()
-        self.hover_list = arcade.SpriteList()
+
         self.bg = Controll(TEXT_INTERFACE_BG2, 'bg')
         self.bg_list.append(self.bg)
         self.width = self.bg.width
@@ -144,7 +144,7 @@ class TextInterface2:
             self.message_list.draw()
             self.nps_message_list.draw()
             # self.message_list.draw_hit_boxes(arcade.color.RED)
-            self.hover_list.draw()
+
 
     def set_pos(self, x, y):
         self.bg.set_position(x, y)

@@ -1,0 +1,14 @@
+{ "columns":8,
+ "image":"..\/..\/..\/..\/..\/..\/..\/..\/torrents\/1644864937_19-abrakadabra-fun-p-pikselnaya-trava-42.png",
+ "imageheight":1080,
+ "imagewidth":1920,
+ "margin":0,
+ "name":"1644864937_19-abrakadabra-fun-p-pikselnaya-trava-42",
+ "spacing":0,
+ "tilecount":40,
+ "tiledversion":"1.10.0",
+ "tileheight":216,
+ "tilewidth":240,
+ "type":"tileset",
+ "version":"1.10"
+}

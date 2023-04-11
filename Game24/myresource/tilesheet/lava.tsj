@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"..\/animation_objects\/lava\/01.png",
+ "imageheight":110,
+ "imagewidth":128,
+ "margin":0,
+ "name":"01",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.10.0",
+ "tileheight":110,
+ "tilewidth":128,
+ "type":"tileset",
+ "version":"1.10"
+}

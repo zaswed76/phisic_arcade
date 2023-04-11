@@ -12,10 +12,25 @@ LAYER_NAME_DONT_TOUCH = "Dont_touch"
 LAYER_NAME_INVERTORY = "invertory"
 LAYER_NAME_ANIMATION = "animation"
 LAYER_NAME_BULLET = "bullet"
+LAYER_NAME_BOX = "box"
 LAYER_NAME_NPS = "nps"
+LAYER_NAME_PORTAL = "Portal"
+LAYER_NAME_MOOV_BACKGROUND = "moov_background"
+LAYER_NAME_ENEMIES = "enemys"
 
+STANDART_BULLET = dict(mass=2,damping=1,friction=0.9,collision_type="bullet",gravity=(0, 0),elasticity=0.5)
+BOMB_BULLET = dict(mass=1,damping=1,friction=0.9,collision_type="bullet",gravity=(0, -200),elasticity=0.5)
+STANDART_BOX = dict(mass=6,damping=1,friction=0.9,collision_type="box",gravity=(0, -1000),elasticity=0.0)
+PORTAL_BOX = dict(mass=6.5,damping=0.9,friction=1,collision_type="box",gravity=(0, -500),elasticity=0.0)
 
-
+BULLETS_CFG = {'STANDART_BULLET': STANDART_BULLET, 'STANDART_BOX': STANDART_BOX, 'BOMB_BULLET': BOMB_BULLET}
+BULLET_MOVE_FORCE = 200000
+BULLET_MOVE_ENEMIES_FORCE = 30000
+BOX_MOVE_FORCE = 173600
+HIT_BOX_BULLET = ((-16.0, -12.0), (16.0, -12.0), (16.0, 12.0), (-16.0, 12.0))
+BOX_NAME = 'box3'
+BOX_NAME2 = 'PORTALSTOUN'
+BULLET_NAME = '55'
 
 # ###################################################################
 # ###############     Game   #####################################
@@ -55,8 +70,8 @@ DYNAMIC_DAMPING = 1 # 0 количество скорости, которое с
 
 
 # Keep player from going too fast
-PLAYER_MAX_HORIZONTAL_SPEED = 500
-PLAYER_MAX_VERTICAL_SPEED = 800
+PLAYER_MAX_HORIZONTAL_SPEED = 620
+PLAYER_MAX_VERTICAL_SPEED = 620
 
 # Force applied while on the ground
 PLAYER_MOVE_FORCE_ON_GROUND = 5900
@@ -75,7 +90,7 @@ RIGHT_FACING = 0
 LEFT_FACING = 1
 
 
-BULLET_MOVE_FORCE = 150000
+
 
 
 
